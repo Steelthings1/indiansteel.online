@@ -126,10 +126,10 @@ export const QuoteRequestModal: React.FC = () => {
             </div>
             <div>
               <h3 className="font-display font-black text-lg text-white uppercase tracking-wider">
-                Get a Quote — Indian Steel
+                Get a Quote — indiansteel.online
               </h3>
               <p className="text-[11px] font-mono text-slate-400">
-                Custom Steel Sizing, Plate Retail & Cutting Services
+                indiansteel.online • Custom Steel Sizing, Plate Retail & Cutting Services
               </p>
             </div>
           </div>

@@ -84,14 +84,14 @@ export const Navbar: React.FC = () => {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-display font-black text-2xl tracking-wider text-white uppercase group-hover:text-brand-orange transition-colors">
-                  INDIAN<span className="text-brand-orange">STEEL</span>
+                  INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-lg lowercase">.online</span>
                 </span>
                 <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-brand-orange/10 text-brand-orange border border-brand-orange/30">
                   ESTD 2026
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 font-medium tracking-tight -mt-1 hidden sm:block">
-                Steel Retail & Custom Cutting Services
+                indiansteel.online • Steel Retail & Custom Cutting Services
               </p>
             </div>
           </div>

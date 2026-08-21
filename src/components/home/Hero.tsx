@@ -127,7 +127,7 @@ export const Hero: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-inner">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping" />
               <span className="text-xs font-mono font-semibold tracking-wider text-slate-200 uppercase">
-                India's Trusted Steel Cutting Specialists
+                indiansteel.online • India's Trusted Steel Sizing & Cutting Specialists
               </span>
             </div>
 

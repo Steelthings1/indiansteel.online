@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
                 </svg>
               </div>
               <span className="font-display font-black text-2xl tracking-wider text-white uppercase">
-                INDIAN<span className="text-brand-orange">STEEL</span>
+                INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-lg lowercase">.online</span>
               </span>
             </div>
 
