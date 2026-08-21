@@ -62,10 +62,10 @@ export const ContactSection: React.FC = () => {
             Get In Touch
           </div>
           <h2 className="text-3xl sm:text-4xl font-black font-display text-white mb-2">
-            Contact Indian Steel
+            Talk to Our Team in Coimbatore
           </h2>
           <p className="text-sm text-slate-400">
-            Steel Retail & Custom Cutting Services • Coimbatore Workshop & Sales Yard
+            Have a custom plate size or CAD drawing? Call us directly or drop a message on WhatsApp for immediate weight and rate calculations.
           </p>
         </div>
 

@@ -12,33 +12,33 @@ import {
 export const WhyChooseUs: React.FC = () => {
   const pillars = [
     {
-      title: 'Quality Certified Steel',
-      desc: 'Prime mild steel IS 2062 plates with full material traceability and verified chemical/mechanical properties.',
+      title: 'Genuine Prime IS 2062 Material',
+      desc: 'We only stock certified prime mild steel plates from trusted mills. Mill test certificates provided on request.',
       icon: <ShieldCheck className="w-6 h-6 text-brand-orange" />
     },
     {
-      title: 'Precision Dimensions',
-      desc: 'Accurate cutting adhering strictly to your specified length, width, radius, and CAD drawing specs.',
+      title: 'Honest Weight & Fair Rates',
+      desc: 'Transparent pricing by weight with accurate electronic weighbridge weighing. No hidden charges.',
       icon: <Ruler className="w-6 h-6 text-amber-400" />
     },
     {
-      title: 'Multiple Cutting Tech',
-      desc: 'Choose between manual oxy-fuel, machine profile cutting, or high-precision CNC fiber laser.',
+      title: 'Right Cutting for Every Budget',
+      desc: 'Choose from economical manual oxy-fuel, motorized machine tracking, or high-precision CNC fiber laser.',
       icon: <Zap className="w-6 h-6 text-blue-400" />
     },
     {
-      title: 'Fast Quote Response',
-      desc: 'Get rapid quotation feedback, transparent price per kg, and clear job scheduling.',
+      title: 'Direct WhatsApp Quotations',
+      desc: 'Send your measurements or DXF drawing to 9342472147 and get quick rates per kg and estimated lead time.',
       icon: <Clock className="w-6 h-6 text-emerald-400" />
     },
     {
-      title: 'Custom Sizes & Shapes',
-      desc: 'No rigid constraints — from small single-piece plates to large heavy-gauge structural cuts.',
+      title: 'No Minimum Order Hassle',
+      desc: 'Need just 1 machine base plate or 500 flange blanks? We treat single-piece orders with the same priority.',
       icon: <Sliders className="w-6 h-6 text-purple-400" />
     },
     {
-      title: 'Industrial Experience',
-      desc: 'Dedicated assistance for workshops, fabricators, engineering units, and commercial contractors.',
+      title: 'Deburred & Ready to Weld',
+      desc: 'Edges are ground and cleaned before dispatch so your fabricators can start welding without extra prep time.',
       icon: <Briefcase className="w-6 h-6 text-rose-400" />
     }
   ];

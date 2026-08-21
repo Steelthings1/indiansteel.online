@@ -15,31 +15,31 @@ export const HowItWorksTimeline: React.FC = () => {
   const steps = [
     {
       step: '01',
-      title: 'Share Your Requirement',
-      description: 'Provide material type, plate thickness, length, width, quantity, and required shape or upload your CAD drawing (DXF/DWG/PDF).',
+      title: 'Send Your Sizes or Drawing',
+      description: 'Tell us the thickness, length, width, and quantity you need — or simply share your CAD drawing (.DXF / .DWG / .PDF) on WhatsApp or our online form.',
       icon: <FileText className="w-5 h-5 text-brand-orange" />,
-      tag: 'Requirement Submission'
+      tag: 'Step 1: Inquiry'
     },
     {
       step: '02',
-      title: 'Get a Quote',
-      description: 'Indian Steel engineering team reviews your requirement, calculates weight & cutting charges, and sends a binding quotation.',
+      title: 'Receive Instant Per-Kg Rate',
+      description: 'We calculate exact plate weight, material rate, cutting charge, and 18% GST with zero hidden fees, so you know the full cost upfront.',
       icon: <Calculator className="w-5 h-5 text-amber-400" />,
-      tag: 'Fast Pricing'
+      tag: 'Step 2: Clear Pricing'
     },
     {
       step: '03',
-      title: 'Cutting & Processing',
-      description: 'Upon quote approval, raw certified MS plate is mounted and processed on our oxy-fuel, machine, or CNC fiber laser cutting line.',
+      title: 'Yard Cutting & Edge Grinding',
+      description: 'Our operators cut your plates on oxy-fuel, motorized line track, or CNC fiber laser, followed by clean edge deburring.',
       icon: <Flame className="w-5 h-5 text-blue-400" />,
-      tag: 'Shop Floor Execution'
+      tag: 'Step 3: Processing'
     },
     {
       step: '04',
-      title: 'Pickup / Delivery',
-      description: 'Cut material undergoes dimensional inspection, edge deburring, and is prepared for workshop pickup or freight dispatch.',
+      title: 'Pick Up or Site Delivery',
+      description: 'Collect your order directly from our Saravanampatty yard or let us arrange safe truck transport directly to your workshop.',
       icon: <Truck className="w-5 h-5 text-emerald-400" />,
-      tag: 'Dispatch Ready'
+      tag: 'Step 4: Delivery'
     }
   ];
 
@@ -50,13 +50,13 @@ export const HowItWorksTimeline: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono font-bold text-brand-orange uppercase tracking-widest mb-1">
-            Order Fulfillment Flow
+            Easy Ordering
           </div>
           <h2 className="text-3xl sm:text-4xl font-black font-display text-white mb-3">
-            How It Works — Simple 4-Step Process
+            How Ordering Works in 4 Steps
           </h2>
           <p className="text-sm text-slate-400">
-            From initial size inquiry to finished cut plate delivery, experience a transparent, fast-turnaround industrial workflow.
+            From size inquiry to ready-to-weld finished plates, getting steel from our Coimbatore yard is straightforward.
           </p>
         </div>
 

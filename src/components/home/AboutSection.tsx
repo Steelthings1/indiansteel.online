@@ -79,16 +79,19 @@ export const AboutSection: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
             <div>
               <div className="text-xs font-mono font-bold text-brand-orange uppercase tracking-widest mb-1">
-                About Indian Steel
+                Our Workshop & Yard
               </div>
               <h2 className="text-3xl sm:text-4xl font-black font-display text-white leading-tight">
-                Built on Steel. <br />
-                <span className="orange-gradient-text">Driven by Precision.</span>
+                Quality Steel Supply. <br />
+                <span className="orange-gradient-text">Honest Cutting Services.</span>
               </h2>
             </div>
 
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              At <strong className="text-white">Indian Steel</strong>, we bridge raw steel material supply with high-precision custom cutting technology. Whether you need full-size MS plates, cut-to-length structural pieces, or complex CAD-drawn profiles laser cut for industrial machinery, our facility delivers dependable material quality and accurate dimensions without compromise.
+              Based in Coimbatore, <strong className="text-white">Indian Steel</strong> was built to solve a simple problem fabricators and machine shops face daily: getting mild steel plates cut to exact sizes without paying for unnecessary scrap or waiting weeks for delivery.
+            </p>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              We stock certified IS 2062 mild steel plates from 6mm to 100mm+ and cut them directly in our yard using oxy-fuel, motorized line track, and CNC fiber laser machines. Every piece is measured, deburred, and weighed honestly on calibrated scales before leaving our gate.
             </p>
 
             {/* 6 Grid Highlights */}
@@ -115,7 +118,7 @@ export const AboutSection: React.FC = () => {
                 }}
                 className="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-brand-orange/50 text-white font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center gap-2"
               >
-                <span>Learn More About Indian Steel</span>
+                <span>Read More About Our Coimbatore Yard</span>
                 <ArrowRight className="w-4 h-4 text-brand-orange" />
               </button>
             </div>

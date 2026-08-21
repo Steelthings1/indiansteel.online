@@ -16,7 +16,8 @@ import {
   Sparkles,
   Award,
   ArrowUpRight,
-  Calculator
+  Calculator,
+  Phone
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -180,23 +181,23 @@ export const Hero: React.FC = () => {
           {/* Left Column: Headline & Thickness Quick Selector */}
           <div className="lg:col-span-7 space-y-6">
             
-            {/* Top Industrial Badge */}
+            {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-inner">
               <span className="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping" />
               <span className="text-xs font-mono font-bold tracking-wider text-slate-200 uppercase">
-                Indian Steel • Precision Metal Sizing & CNC Cutting • Coimbatore
+                Mild Steel Plates & Custom Cutting • Coimbatore Yard
               </span>
             </div>
 
-            {/* Main Headline with Premium Typography */}
+            {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black font-display text-white leading-[1.08] tracking-tight">
-              Steel Cut to Your <br />
-              <span className="orange-gradient-text">Exact Requirement.</span>
+              Cut-to-Size Mild Steel Plates. <br />
+              <span className="orange-gradient-text">Direct from Warehouse.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
-              Prime Mild Steel (IS 2062) Plates, Manual Oxy-Fuel, Motorized Machine, and CNC Fiber Laser Cutting for fabrication, industrial engineering, and structural applications across India.
+              We supply prime IS 2062 mild steel plates in full sizes or cut to your exact length, width, and shape. Whether you need a single machine base plate or batch production parts, get clean cuts and honest per-kg rates with fast dispatch across Tamil Nadu and India.
             </p>
 
             {/* Interactive Plate Thickness Quick Selector Strip */}
@@ -204,7 +205,7 @@ export const Hero: React.FC = () => {
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-slate-400 font-bold uppercase flex items-center gap-1.5">
                   <Sliders className="w-3.5 h-3.5 text-brand-orange" />
-                  <span>Select Plate Thickness (mm):</span>
+                  <span>Choose Plate Thickness:</span>
                 </span>
                 <span className="text-brand-orange font-bold">
                   {selectedThickness} mm Selected
@@ -231,16 +232,16 @@ export const Hero: React.FC = () => {
               {/* Live Spec Readout */}
               <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
                 <span className="text-slate-400">
-                  Nominal Weight: <strong className="text-white">{weightPerSqM} kg/m²</strong>
+                  Approx Weight: <strong className="text-white">{weightPerSqM} kg/m²</strong>
                 </span>
                 <span className="text-slate-400">
-                  Benchmark: <strong className="text-emerald-400">≈ ₹{pricePerSqM.toLocaleString()}/m²</strong>
+                  Base Rate: <strong className="text-emerald-400">≈ ₹{pricePerSqM.toLocaleString()}/m²</strong>
                 </span>
                 <button
                   onClick={() => openQuoteModal({ thickness: selectedThickness })}
                   className="text-brand-orange hover:underline font-bold flex items-center gap-1 text-[11px]"
                 >
-                  <span>Quote {selectedThickness}mm</span>
+                  <span>Get {selectedThickness}mm Price</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -250,11 +251,10 @@ export const Hero: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
               <button
                 onClick={() => openQuoteModal({ thickness: selectedThickness })}
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-orange via-orange-500 to-red-600 hover:from-orange-600 hover:to-brand-orange text-white font-black text-sm uppercase tracking-wider shadow-2xl shadow-brand-orange/35 hover:shadow-brand-orange/60 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 border border-orange-400/40 relative overflow-hidden group"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-orange via-orange-500 to-red-600 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-brand-orange/30 hover:shadow-brand-orange/50 hover:scale-[1.02] active:scale-[0.98] transition-all border border-orange-400/50 flex items-center justify-center gap-2 group"
               >
-                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none" />
-                <FileText className="w-5 h-5" />
-                <span>Get Instant Quotation</span>
+                <FileText className="w-4 h-4" />
+                <span>Get a Fast Quotation</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
 
@@ -263,11 +263,21 @@ export const Hero: React.FC = () => {
                   setActivePage('calculator');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="px-6 py-4 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-brand-orange/60 text-slate-200 hover:text-white font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg"
+                className="px-6 py-4 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-brand-orange/60 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg"
               >
                 <Calculator className="w-4 h-4 text-amber-400" />
-                <span>Steel Weight Calculator</span>
+                <span>Calculate Weight</span>
               </button>
+
+              <a
+                href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello Indian Steel, I need a quote for ${selectedThickness}mm MS plate cut to size.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md"
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>WhatsApp Specs</span>
+              </a>
             </div>
 
             {/* Benchmark Quality Pillars */}
