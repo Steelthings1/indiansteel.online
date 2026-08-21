@@ -135,8 +135,15 @@ export const QuoteRequestModal: React.FC = () => {
         {/* Header */}
         <div className="px-6 py-4 bg-[#0B0D12] border-b border-slate-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center shadow-lg shadow-brand-orange/20">
-              <FileText className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/80 p-0.5 shadow-lg shadow-brand-orange/20 flex items-center justify-center shrink-0">
+              <img 
+                src="/logo.png" 
+                alt="Indian Steel Logo" 
+                className="w-full h-full object-contain rounded-lg filter drop-shadow-md"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/logo.jpg';
+                }}
+              />
             </div>
             <div>
               <h3 className="font-display font-black text-lg text-white uppercase tracking-wider">

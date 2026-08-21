@@ -32,14 +32,24 @@ export const Footer: React.FC = () => {
           {/* Brand Profile (Col 1 & 2) */}
           <div className="lg:col-span-2 space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-orange to-red-700 flex items-center justify-center text-white shadow-lg border border-orange-400/30">
-                <svg className="w-6 h-6 stroke-white fill-none stroke-[2.5]" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-0.5 shadow-lg shadow-brand-orange/20 flex items-center justify-center">
+                <img 
+                  src="/logo.png" 
+                  alt="Indian Steel Logo" 
+                  className="w-full h-full object-contain rounded-lg filter drop-shadow-md"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/logo.jpg';
+                  }}
+                />
               </div>
-              <span className="font-display font-black text-2xl tracking-wider text-white uppercase">
-                INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-lg lowercase">.online</span>
-              </span>
+              <div>
+                <span className="font-display font-black text-2xl tracking-wider text-white uppercase block">
+                  INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-lg lowercase">.online</span>
+                </span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block -mt-1">
+                  Plate Cutting • Precision • Quality • Value
+                </span>
+              </div>
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed pr-4">

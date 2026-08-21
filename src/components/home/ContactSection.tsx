@@ -77,12 +77,19 @@ export const ContactSection: React.FC = () => {
             {/* Company Info Box */}
             <div className="industrial-card rounded-2xl p-6 space-y-5">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
-                <div className="w-10 h-10 rounded-lg bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center">
-                  <Building2 className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-0.5 shadow-lg shadow-brand-orange/20 flex items-center justify-center shrink-0">
+                  <img 
+                    src="/logo.png" 
+                    alt="Indian Steel Logo" 
+                    className="w-full h-full object-contain rounded-lg filter drop-shadow-md"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/logo.jpg';
+                    }}
+                  />
                 </div>
                 <div>
                   <h3 className="font-display font-black text-xl text-white">INDIAN STEEL<span className="text-slate-400 font-mono text-base font-normal lowercase">.online</span></h3>
-                  <p className="text-xs text-brand-orange font-mono">Official Steel Retail & Custom Metal Cutting Portal</p>
+                  <p className="text-xs text-brand-orange font-mono">Plate Cutting • Precision • Quality • Value</p>
                 </div>
               </div>
 

@@ -116,11 +116,16 @@ export const Navbar: React.FC = () => {
               onClick={() => handleNavClick('home')}
               className="flex items-center gap-3 cursor-pointer group"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-orange via-orange-600 to-red-700 flex items-center justify-center text-white shadow-lg shadow-brand-orange/30 border border-orange-400/40 group-hover:scale-105 transition-transform duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <svg className="w-6 h-6 stroke-white fill-none stroke-[2.5]" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="w-11 h-11 rounded-xl bg-slate-900 border border-slate-700/80 p-0.5 shadow-lg shadow-brand-orange/20 group-hover:scale-105 transition-transform duration-300 relative overflow-hidden flex items-center justify-center">
+                <img 
+                  src="/logo.png" 
+                  alt="Indian Steel Logo" 
+                  className="w-full h-full object-contain rounded-lg filter drop-shadow-md"
+                  onError={(e) => {
+                    // Fallback to logo.jpg if logo.png fails
+                    (e.target as HTMLImageElement).src = '/logo.jpg';
+                  }}
+                />
               </div>
 
               <div>
@@ -133,7 +138,7 @@ export const Navbar: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-[10px] text-slate-400 font-mono tracking-tight -mt-1 hidden sm:block">
-                  Steel Retail & Precision Cutting Portal
+                  Plate Cutting • Precision • Quality • Value
                 </p>
               </div>
             </div>
