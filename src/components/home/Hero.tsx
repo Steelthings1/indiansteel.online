@@ -357,17 +357,6 @@ export const Hero: React.FC = () => {
 
             </div>
 
-            {/* Floating Tech Badge */}
-            <div className="absolute -bottom-5 -left-5 hidden sm:flex items-center gap-3 p-3.5 rounded-2xl bg-slate-900/95 border border-slate-700 shadow-2xl backdrop-blur-md z-30">
-              <div className="w-10 h-10 rounded-xl bg-brand-orange/20 border border-brand-orange/40 flex items-center justify-center text-brand-orange">
-                <Cpu className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold text-white">CAD Vector Nesting</div>
-                <div className="text-[10px] text-slate-400 font-mono">Direct DXF / DWG Upload Support</div>
-              </div>
-            </div>
-
           </div>
 
         </div>

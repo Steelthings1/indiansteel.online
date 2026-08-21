@@ -510,7 +510,7 @@ export const QuoteRequestModal: React.FC = () => {
                   <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                     <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5">
                       <Zap className="w-4 h-4" />
-                      <span>Step 3: Cutting Method & CAD Vector Upload</span>
+                      <span>Step 3: Cutting Method & Drawing Upload</span>
                     </h4>
                     <span className="text-[10px] font-mono text-slate-400">Step 3 of 3</span>
                   </div>

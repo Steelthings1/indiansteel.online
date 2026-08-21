@@ -120,7 +120,7 @@ export const LaserCuttingPage: React.FC = () => {
           <UploadCloud className="w-12 h-12 text-brand-orange mx-auto animate-bounce" />
           <h3 className="text-2xl font-bold font-display text-white">Have CAD Drawings Ready? (DXF / DWG / PDF)</h3>
           <p className="text-xs text-slate-400 max-w-xl mx-auto">
-            Upload your vector drawing file in our quote modal for instant nested pricing and lead time calculation by our nesting engineers.
+            Upload your drawing file in our quote modal for instant pricing and workshop scheduling by our cutting specialists.
           </p>
           <button
             onClick={() => openQuoteModal({ cuttingMethod: 'Laser Cutting' })}
