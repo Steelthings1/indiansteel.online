@@ -44,10 +44,10 @@ export const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="font-display font-black text-2xl tracking-wider text-white uppercase block">
-                  INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-lg lowercase">.online</span>
+                  INDIAN <span className="text-brand-orange">STEEL</span>
                 </span>
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block -mt-1">
-                  Plate Cutting • Precision • Quality • Value
+                  Plate Cutting • Precision • Quality • Value • Coimbatore
                 </span>
               </div>
             </div>
@@ -197,7 +197,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© 2026 Indian Steel (indiansteel.online). All Rights Reserved. Built for Industrial Steel Excellence.</p>
+          <p>© 2026 Indian Steel. All Rights Reserved. Built for Industrial Steel Excellence.</p>
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-slate-400">
               <ShieldCheck className="w-4 h-4 text-brand-orange" />

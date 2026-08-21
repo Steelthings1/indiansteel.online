@@ -9,9 +9,9 @@ export const generateLocalBusinessSchema = (settings: {
   return {
     "@context": "https://schema.org",
     "@type": "SteelWorkOrRetailer",
-    "name": "Indian Steel (indiansteel.online)",
+    "name": "Indian Steel",
     "url": "https://indiansteel.online",
-    "description": "Premium MS Plate Retail & Precision Custom Steel Metal Cutting Services (Manual, Machine, CNC Laser Cutting) at indiansteel.online.",
+    "description": "Premium MS Plate Retail & Precision Custom Steel Metal Cutting Services (Manual, Machine, CNC Laser Cutting) by Indian Steel, Coimbatore.",
     "telephone": settings.phone,
     "email": settings.email || "sales@indiansteel.online",
     "address": {

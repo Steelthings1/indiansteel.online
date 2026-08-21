@@ -184,7 +184,7 @@ export const Hero: React.FC = () => {
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 shadow-inner">
               <span className="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping" />
               <span className="text-xs font-mono font-bold tracking-wider text-slate-200 uppercase">
-                indiansteel.online • Precision Metal Sizing & CNC Cutting
+                Indian Steel • Precision Metal Sizing & CNC Cutting • Coimbatore
               </span>
             </div>
 

@@ -62,10 +62,10 @@ export const ContactSection: React.FC = () => {
             Get In Touch
           </div>
           <h2 className="text-3xl sm:text-4xl font-black font-display text-white mb-2">
-            Contact Indian Steel (indiansteel.online)
+            Contact Indian Steel
           </h2>
           <p className="text-sm text-slate-400">
-            indiansteel.online • Steel Retail & Custom Cutting Services • Workshop & Sales Yard
+            Steel Retail & Custom Cutting Services • Coimbatore Workshop & Sales Yard
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <h3 className="font-display font-black text-xl text-white">INDIAN STEEL<span className="text-slate-400 font-mono text-base font-normal lowercase">.online</span></h3>
+                  <h3 className="font-display font-black text-xl text-white">INDIAN STEEL</h3>
                   <p className="text-xs text-brand-orange font-mono">Plate Cutting • Precision • Quality • Value</p>
                 </div>
               </div>

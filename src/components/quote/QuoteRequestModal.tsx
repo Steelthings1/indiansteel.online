@@ -169,7 +169,7 @@ export const QuoteRequestModal: React.FC = () => {
                 Instant Cutting Quotation Engine
               </h3>
               <p className="text-[11px] font-mono text-slate-400">
-                indiansteel.online • Accurate Dimension Sizing & Mill Certified Material
+                Indian Steel • Accurate Dimension Sizing & Mill Certified Material • Coimbatore
               </p>
             </div>
           </div>
@@ -258,7 +258,7 @@ export const QuoteRequestModal: React.FC = () => {
                   Close Window
                 </button>
                 <a
-                  href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello Indian Steel (indiansteel.online), I just submitted quote ${generatedQuoteId} for ${materialType} (${thickness}mm). Please review.`)}`}
+                  href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello Indian Steel, I just submitted quote ${generatedQuoteId} for ${materialType} (${thickness}mm). Please review.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase flex items-center gap-2 shadow-lg shadow-emerald-600/30"

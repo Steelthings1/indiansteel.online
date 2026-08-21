@@ -50,10 +50,10 @@ interface AppContextType {
 
 const defaultSettings: SiteSettings = {
   companyName: 'Indian Steel',
-  tagline: 'Steel Retail & Custom Metal Cutting Service (indiansteel.online)',
-  phone: '+91 80563 10565',
-  secondaryPhone: '+91 93424 72147',
-  whatsapp: '918056310565',
+  tagline: 'Steel Retail & Custom Metal Cutting Service',
+  phone: '+91 93424 72147',
+  secondaryPhone: '+91 80563 10565',
+  whatsapp: '919342472147',
   email: 'sales@indiansteel.online',
   address: 'NO 16, V.K Road, sivanandhapuram, saravanampatty, Coimbatore - 641006',
   businessHours: 'Mon - Sat: 8:30 AM - 7:30 PM | Sunday: Closed',
@@ -62,7 +62,7 @@ const defaultSettings: SiteSettings = {
   defaultLaserCuttingRatePerMm: 1.5,
   defaultMachineCuttingRatePerMm: 0.8,
   defaultManualCuttingRatePerMm: 0.4,
-  whatsappPreFilledMessage: 'Hello Indian Steel (indiansteel.online), I would like to enquire about MS plate supply and custom cutting services.',
+  whatsappPreFilledMessage: 'Hello Indian Steel, I would like to enquire about MS plate supply and custom cutting services.',
   materialsList: ['Mild Steel (MS IS 2062)', 'High Tensile Steel (E350/E450)', 'Carbon Steel (C45)', 'Stainless Steel (SS 304/316)', 'Chequered Plate MS'],
   thicknessOptionsMm: [3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 63, 75, 100],
   gradesList: ['IS 2062 E250 Gr A/B', 'IS 2062 E350 BR', 'SA 516 Gr 70', 'C-45', 'SS 304 Industrial'],

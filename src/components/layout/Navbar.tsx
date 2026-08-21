@@ -152,10 +152,10 @@ export const Navbar: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-display font-black text-lg sm:text-2xl tracking-wider text-white uppercase group-hover:text-brand-orange transition-colors">
-                      INDIAN<span className="text-brand-orange">STEEL</span><span className="text-slate-400 font-mono text-sm sm:text-base font-normal lowercase">.online</span>
+                      INDIAN <span className="text-brand-orange">STEEL</span>
                     </span>
                     <span className="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-brand-orange/15 text-brand-orange border border-brand-orange/30 font-bold hidden md:inline-block">
-                      ESTD 2026
+                      COIMBATORE
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 font-mono tracking-tight -mt-1 hidden sm:block">
@@ -385,7 +385,7 @@ export const Navbar: React.FC = () => {
             {/* Bottom Actions inside Drawer */}
             <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-slate-400 font-mono">
-                indiansteel.online • Steel Retail & Custom Metal Cutting Portal
+                Indian Steel • Steel Retail & Precision Custom Metal Cutting • Coimbatore
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
