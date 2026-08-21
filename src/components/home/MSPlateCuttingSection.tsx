@@ -34,6 +34,74 @@ export const MSPlateCuttingSection: React.FC = () => {
           </p>
         </div>
 
+        {/* MS Plate Visual Showcase & Technical Banner */}
+        <div className="industrial-card rounded-3xl p-6 sm:p-8 mb-12 border-slate-700/80 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left: High Resolution MS Plate Image */}
+            <div className="lg:col-span-6 relative group">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-700 shadow-2xl h-72 sm:h-80 bg-slate-950">
+                <img
+                  src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=1200"
+                  alt="Industrial Mild Steel MS Plates"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1200';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                
+                {/* Tech Badge Overlay */}
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-lg bg-slate-900/90 text-brand-orange border border-brand-orange/40 text-[10px] font-mono font-bold uppercase backdrop-blur-md">
+                    Prime Mill Stock
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold uppercase backdrop-blur-md">
+                    6mm – 100mm+ Available
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/95 border border-slate-800 text-xs font-mono backdrop-blur-md flex items-center justify-between">
+                  <div>
+                    <div className="text-white font-bold font-display uppercase tracking-wider">IS 2062 Structural Plates</div>
+                    <div className="text-[10px] text-slate-400 font-mono">Custom Length & Width Straight Flame / Laser Cut</div>
+                  </div>
+                  <span className="text-emerald-400 font-bold font-mono text-xs">Ready for Dispatch</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Technical Specifications */}
+            <div className="lg:col-span-6 space-y-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/30 text-brand-orange text-xs font-mono font-bold uppercase">
+                <Sliders className="w-3.5 h-3.5" />
+                <span>Heavy Metal Plate Supply</span>
+              </div>
+              
+              <h3 className="text-2xl sm:text-3xl font-black font-display text-white leading-snug">
+                Heavy Gauge MS Plates <br />
+                <span className="orange-gradient-text">Cut Directly from Stock</span>
+              </h3>
+              
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Whether you require individual machine base plates, heavy structural gussets, or batch production blanks, our Coimbatore yard processes certified IS 2062 plates to tight linear tolerances.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="text-[10px] font-mono text-slate-400 uppercase">Available Thicknesses:</div>
+                  <div className="text-sm font-bold font-mono text-white mt-0.5">6mm to 100mm+</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="text-[10px] font-mono text-slate-400 uppercase">Grade Standards:</div>
+                  <div className="text-sm font-bold font-mono text-brand-orange mt-0.5">IS 2062 E250 / E350</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         {/* 3-Step Interactive Process Flow */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           
