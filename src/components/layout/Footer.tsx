@@ -143,11 +143,21 @@ export const Footer: React.FC = () => {
                 <MapPin className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
                 <span className="text-slate-300">{settings.address}</span>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-brand-orange shrink-0" />
-                <a href={`tel:${settings.phone}`} className="text-slate-300 hover:text-white transition-colors">
-                  {settings.phone}
-                </a>
+              <li className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
+                <div className="flex flex-wrap gap-x-2 text-slate-300 font-mono">
+                  <a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">
+                    {settings.phone}
+                  </a>
+                  {settings.secondaryPhone && (
+                    <span className="text-slate-500">/</span>
+                  )}
+                  {settings.secondaryPhone && (
+                    <a href={`tel:${settings.secondaryPhone}`} className="hover:text-white transition-colors">
+                      {settings.secondaryPhone}
+                    </a>
+                  )}
+                </div>
               </li>
               <li className="flex items-center gap-2.5">
                 <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />

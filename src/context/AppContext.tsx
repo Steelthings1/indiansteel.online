@@ -51,12 +51,13 @@ interface AppContextType {
 const defaultSettings: SiteSettings = {
   companyName: 'Indian Steel',
   tagline: 'Steel Retail & Custom Metal Cutting Service (indiansteel.online)',
-  phone: '+91 98765 43210',
-  whatsapp: '919876543210',
+  phone: '+91 80563 10565',
+  secondaryPhone: '+91 93424 72147',
+  whatsapp: '918056310565',
   email: 'sales@indiansteel.online',
-  address: 'Plot 45, Industrial Area Phase II, Steel Yard Complex, Mumbai - 400072, India',
+  address: 'NO 16, V.K Road, sivanandhapuram, saravanampatty, Coimbatore - 641006',
   businessHours: 'Mon - Sat: 8:30 AM - 7:30 PM | Sunday: Closed',
-  gstNumber: '27AAAAA0000A1Z5',
+  gstNumber: '33AAIFJ0968J1Z6',
   defaultBasePricePerKg: 64, // INR per kg
   defaultLaserCuttingRatePerMm: 1.5,
   defaultMachineCuttingRatePerMm: 0.8,

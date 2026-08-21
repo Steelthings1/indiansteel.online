@@ -111,6 +111,7 @@ export interface SiteSettings {
   companyName: string;
   tagline: string;
   phone: string;
+  secondaryPhone?: string;
   whatsapp: string;
   email: string;
   address: string;

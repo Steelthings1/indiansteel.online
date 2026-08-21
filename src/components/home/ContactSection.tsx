@@ -8,7 +8,8 @@ import {
   Send, 
   FileText, 
   CheckCircle2, 
-  Building2 
+  Building2,
+  ShieldCheck
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -94,13 +95,23 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </li>
                 
-                <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-brand-orange shrink-0" />
+                <li className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-brand-orange shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block font-mono text-[10px] uppercase">Direct Phone Line:</span>
-                    <a href={`tel:${settings.phone}`} className="text-white font-bold text-sm hover:text-brand-orange transition-colors">
-                      {settings.phone}
-                    </a>
+                    <span className="text-slate-400 block font-mono text-[10px] uppercase">Phone & Orders:</span>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <a href={`tel:${settings.phone}`} className="text-white font-bold text-sm hover:text-brand-orange transition-colors font-mono">
+                        {settings.phone}
+                      </a>
+                      {settings.secondaryPhone && (
+                        <span className="text-slate-500 font-mono">/</span>
+                      )}
+                      {settings.secondaryPhone && (
+                        <a href={`tel:${settings.secondaryPhone}`} className="text-white font-bold text-sm hover:text-brand-orange transition-colors font-mono">
+                          {settings.secondaryPhone}
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </li>
 
@@ -112,7 +123,7 @@ export const ContactSection: React.FC = () => {
                       href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(settings.whatsappPreFilledMessage)}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-emerald-400 font-bold hover:underline"
+                      className="text-emerald-400 font-bold hover:underline font-mono"
                     >
                       +{settings.whatsapp}
                     </a>
@@ -136,6 +147,14 @@ export const ContactSection: React.FC = () => {
                     <span className="text-slate-300">{settings.businessHours}</span>
                   </div>
                 </li>
+
+                <li className="flex items-center gap-3 pt-1 border-t border-slate-800/80">
+                  <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+                  <div>
+                    <span className="text-slate-400 block font-mono text-[10px] uppercase">GST Identification Number (GSTIN):</span>
+                    <span className="text-emerald-400 font-mono font-bold">{settings.gstNumber}</span>
+                  </div>
+                </li>
               </ul>
 
               <div className="pt-2 border-t border-slate-800">
@@ -152,8 +171,8 @@ export const ContactSection: React.FC = () => {
             {/* Google Maps Visual Representation */}
             <div className="industrial-card rounded-2xl p-4 overflow-hidden relative">
               <div className="flex items-center justify-between text-xs font-mono mb-2">
-                <span className="text-slate-300 font-bold">WORKSHOP & YARD LOCATION</span>
-                <span className="text-brand-orange">MAP DIRECTIONS</span>
+                <span className="text-slate-300 font-bold">COIMBATORE WORKSHOP & YARD</span>
+                <span className="text-brand-orange">MAP LOCATION</span>
               </div>
               <div className="w-full h-44 rounded-xl bg-slate-950 border border-slate-800 relative flex items-center justify-center overflow-hidden group">
                 {/* Stylized dark map illustration */}
@@ -163,9 +182,9 @@ export const ContactSection: React.FC = () => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <h5 className="font-bold text-xs text-white">Indian Steel Yard & Cutting Plant</h5>
-                  <p className="text-[11px] text-slate-400 max-w-xs mx-auto">Plot 45, Industrial Area Phase II, Steel Complex</p>
+                  <p className="text-[11px] text-slate-400 max-w-xs mx-auto">NO 16, V.K Road, sivanandhapuram, saravanampatty, Coimbatore - 641006</p>
                   <a
-                    href="https://maps.google.com"
+                    href="https://maps.google.com/?q=NO+16+VK+Road+sivanandhapuram+saravanampatty+Coimbatore+641006"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-3 py-1 rounded bg-slate-800 text-[11px] font-mono text-brand-orange hover:bg-brand-orange hover:text-white transition-colors"

@@ -131,9 +131,9 @@ git push -u origin main
 
 - **Website:** [https://indiansteel.online](https://indiansteel.online)
 - **Email:** `sales@indiansteel.online`
-- **Phone:** `+91 98765 43210`
-- **Address:** Plot 45, Industrial Area Phase II, Steel Yard Complex, Mumbai - 400072, India
-- **GSTIN:** `27AAAAA0000A1Z5`
+- **Phone:** `+91 80563 10565 / +91 93424 72147`
+- **Address:** NO 16, V.K Road, sivanandhapuram, saravanampatty, Coimbatore - 641006, Tamil Nadu, India
+- **GSTIN:** `33AAIFJ0968J1Z6`
 
 ---
 
