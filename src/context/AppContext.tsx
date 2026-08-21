@@ -77,7 +77,7 @@ const initialProducts: Product[] = [
     applications: ['Structural Columns', 'Machine Base Plates', 'Heavy Earthmoving Parts', 'Building Girders', 'Flanges & Brackets'],
     thicknesses: ['6 mm', '8 mm', '10 mm', '12 mm', '16 mm', '20 mm', '25 mm', '32 mm', '40 mm', '50 mm', '100 mm+'],
     grades: ['IS 2062 E250 A/B', 'IS 2062 E350 BR', 'SA 516 Gr 70'],
-    image: 'https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/ms-plates.jpg',
     pricePerKg: 64,
     inStock: true,
   },
@@ -89,7 +89,7 @@ const initialProducts: Product[] = [
     applications: ['Control Panels', 'Electrical Enclosures', 'Automotive Panels', 'Ducting & Storage Tanks', 'Cabinet Fabrication'],
     thicknesses: ['1.2 mm', '1.6 mm', '2.0 mm', '2.5 mm', '3.0 mm', '4.0 mm', '5.0 mm'],
     grades: ['HR Commercial Grade', 'CR Deep Drawing Grade'],
-    image: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/ms-sheets.jpg',
     pricePerKg: 68,
     inStock: true,
   },
@@ -101,7 +101,7 @@ const initialProducts: Product[] = [
     applications: ['Pipe Flanges', 'Gear Blanks', 'Crane Hook Parts', 'Base Gussets', 'Special Machine Parts'],
     thicknesses: ['8 mm', '12 mm', '16 mm', '25 mm', '40 mm', '60 mm', '80 mm'],
     grades: ['IS 2062 E250', 'C-45 Forging Grade'],
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/custom-flanges.jpg',
     pricePerKg: 75,
     inStock: true,
   },
@@ -113,7 +113,7 @@ const initialProducts: Product[] = [
     applications: ['Factory Flooring', 'Stair Treads', 'Truck Bed Liners', 'Scaffolding Platforms', 'Heavy Access Ramps'],
     thicknesses: ['3 mm', '4.5 mm', '6 mm', '8 mm', '10 mm'],
     grades: ['IS 2062 Structural Skid-Resistant'],
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/chequered-plates.jpg',
     pricePerKg: 70,
     inStock: true,
   }
@@ -295,8 +295,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   });
 
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('indian_steel_products_v2');
-    return saved ? JSON.parse(saved) : initialProducts;
+    try {
+      localStorage.removeItem('indian_steel_products');
+      localStorage.removeItem('indian_steel_products_v2');
+      const saved = localStorage.getItem('indian_steel_products_v3');
+      return saved ? JSON.parse(saved) : initialProducts;
+    } catch (e) {
+      return initialProducts;
+    }
   });
 
   const [quoteRequests, setQuoteRequests] = useState<QuoteRequest[]>(() => {
@@ -324,7 +330,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [settings]);
 
   useEffect(() => {
-    localStorage.setItem('indian_steel_products', JSON.stringify(products));
+    try {
+      localStorage.setItem('indian_steel_products_v3', JSON.stringify(products));
+    } catch (e) {}
   }, [products]);
 
   useEffect(() => {

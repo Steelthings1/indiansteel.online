@@ -50,9 +50,9 @@ export const MSPlateCuttingPage: React.FC = () => {
             <div className="lg:col-span-5 relative">
               <div className="relative rounded-xl overflow-hidden border border-slate-700 shadow-2xl h-72">
                 <img
-                  src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=800"
+                  src="/images/ms-plates.jpg"
                   alt="Stacked Mild Steel Plates"
-                  className="w-full h-full object-cover filter brightness-90"
+                  className="w-full h-full object-cover filter brightness-95"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
                 <div className="absolute bottom-4 left-4 right-4 p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-xs font-mono">

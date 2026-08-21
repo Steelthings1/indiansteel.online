@@ -42,12 +42,9 @@ export const MSPlateCuttingSection: React.FC = () => {
             <div className="lg:col-span-6 relative group">
               <div className="relative rounded-2xl overflow-hidden border border-slate-700 shadow-2xl h-72 sm:h-80 bg-slate-950">
                 <img
-                  src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=1200"
+                  src="/images/ms-plates.jpg"
                   alt="Industrial Mild Steel MS Plates"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1200';
-                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
                 
