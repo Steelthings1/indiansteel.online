@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { QuoteRequest, Order, Product, SiteSettings } from '../../types';
+import { ThemeToggle } from '../layout/ThemeToggle';
 
 export const AdminDashboard: React.FC = () => {
   const { 
@@ -698,6 +699,15 @@ export const AdminDashboard: React.FC = () => {
                     className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs"
                   />
                 </div>
+              </div>
+
+              {/* Theme Preference Option in Admin Settings */}
+              <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-xs font-mono font-bold text-white uppercase">Display Appearance & Theme</h4>
+                  <p className="text-xs text-slate-400">Choose between Light, Dark, or automatic OS System theme preference.</p>
+                </div>
+                <ThemeToggle />
               </div>
 
               <div className="pt-4 flex justify-end">

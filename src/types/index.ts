@@ -1,4 +1,5 @@
 export type UserRole = 'visitor' | 'customer' | 'admin';
+export type ThemeMode = 'light' | 'dark' | 'system';
 
 export type ActivePage = 
   | 'home' 

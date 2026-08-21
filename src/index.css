@@ -228,3 +228,124 @@
   pointer-events: none;
   filter: blur(50px);
 }
+
+/* =========================================================
+   LIGHT THEME MODE OVERRIDES
+   ========================================================= */
+html.light, body.light, .light {
+  color: #0F172A;
+  background-color: #F8FAFC;
+}
+
+.light #root {
+  background-color: #F8FAFC;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+.light .luxury-industrial-bg {
+  background-color: #F8FAFC;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(255, 85, 0, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 85, 0, 0.02) 0px, transparent 65%),
+    radial-gradient(at 100% 100%, rgba(255, 85, 0, 0.03) 0px, transparent 50%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+}
+
+.light .industrial-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+}
+
+.light .industrial-card::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 85, 0, 0.4) 50%, transparent 100%);
+}
+
+.light .industrial-card:hover {
+  border-color: rgba(255, 85, 0, 0.6);
+  box-shadow: 0 12px 30px -4px rgba(255, 85, 0, 0.15), 0 0 1px 1px rgba(255, 85, 0, 0.3);
+}
+
+.light .industrial-card-glow {
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 85, 0, 0.4);
+  box-shadow: 0 10px 25px -4px rgba(255, 85, 0, 0.12);
+}
+
+.light .metallic-badge {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #CBD5E1;
+}
+
+.light .metallic-gradient-text {
+  background: linear-gradient(135deg, #0F172A 0%, #334155 50%, #64748B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light section {
+  background-color: transparent;
+  border-color: #E2E8F0;
+}
+
+.light .bg-slate-900,
+.light .bg-slate-950,
+.light .bg-\[\#0F1115\],
+.light .bg-\[\#0C0E12\],
+.light .bg-\[\#11141A\],
+.light .bg-\[\#07090D\],
+.light .bg-\[\#0B0D11\] {
+  background-color: #FFFFFF !important;
+}
+
+.light .border-slate-800,
+.light .border-slate-700 {
+  border-color: #E2E8F0 !important;
+}
+
+.light .text-white {
+  color: #0F172A !important;
+}
+
+.light .text-slate-100,
+.light .text-slate-200 {
+  color: #1E293B !important;
+}
+
+.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+.light .text-slate-400 {
+  color: #64748B !important;
+}
+
+.light input,
+.light select,
+.light textarea {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+.light input:focus,
+.light select:focus,
+.light textarea:focus {
+  border-color: #FF5500 !important;
+  background-color: #FFFFFF !important;
+}
+
+.light .ambient-laser-spotlight,
+.light .ambient-blue-spotlight {
+  opacity: 0.35;
+}
+

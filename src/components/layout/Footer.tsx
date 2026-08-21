@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ActivePage } from '../../types';
+import { ThemeToggle } from './ThemeToggle';
 
 export const Footer: React.FC = () => {
   const { setActivePage, openQuoteModal, settings } = useApp();
@@ -197,14 +198,18 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© 2026 Indian Steel. All Rights Reserved. Built for Industrial Steel Excellence.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <p>© 2026 Indian Steel. All Rights Reserved. Built for Industrial Steel Excellence.</p>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-[11px] font-mono text-slate-400">Theme:</span>
+            <ThemeToggle />
+            <span className="hidden sm:inline">•</span>
             <span className="flex items-center gap-1.5 text-slate-400">
               <ShieldCheck className="w-4 h-4 text-brand-orange" />
-              <span>IS 2062 Quality Certified Material</span>
+              <span>IS 2062 Certified</span>
             </span>
-            <span className="hidden sm:inline">•</span>
-            <span>Accuracy & Precision Steel Processing</span>
           </div>
         </div>
       </div>

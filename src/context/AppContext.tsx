@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   ActivePage, 
   UserRole, 
+  ThemeMode,
   QuoteRequest, 
   Order, 
   CuttingJob, 
@@ -15,6 +16,11 @@ interface AppContextType {
   setActivePage: (page: ActivePage) => void;
   userRole: UserRole;
   setUserRole: (role: UserRole) => void;
+  
+  // Theme Setup (Light, Dark, System)
+  themeMode: ThemeMode;
+  setThemeMode: (mode: ThemeMode) => void;
+  resolvedTheme: 'light' | 'dark';
   
   // Modals & Triggers
   isQuoteModalOpen: boolean;
@@ -272,6 +278,56 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activePage, setActivePage] = useState<ActivePage>('home');
   const [userRole, setUserRole] = useState<UserRole>('visitor');
   
+  // Theme Setup (Light, Dark, System)
+  const [themeMode, setThemeModeState] = useState<ThemeMode>(() => {
+    try {
+      const saved = localStorage.getItem('indian_steel_theme');
+      if (saved === 'light' || saved === 'dark' || saved === 'system') {
+        return saved as ThemeMode;
+      }
+    } catch (e) {}
+    return 'system';
+  });
+
+  const [systemIsDark, setSystemIsDark] = useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e: MediaQueryListEvent) => setSystemIsDark(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const resolvedTheme: 'light' | 'dark' = themeMode === 'system' 
+    ? (systemIsDark ? 'dark' : 'light') 
+    : themeMode;
+
+  const setThemeMode = (mode: ThemeMode) => {
+    setThemeModeState(mode);
+    try {
+      localStorage.setItem('indian_steel_theme', mode);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (resolvedTheme === 'light') {
+      root.classList.remove('dark');
+      root.classList.add('light');
+      root.style.colorScheme = 'light';
+    } else {
+      root.classList.remove('light');
+      root.classList.add('dark');
+      root.style.colorScheme = 'dark';
+    }
+  }, [resolvedTheme]);
+
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [quoteModalPrefill, setQuoteModalPrefill] = useState<Partial<QuoteRequest> | null>(null);
 
@@ -474,6 +530,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setActivePage,
         userRole,
         setUserRole,
+        themeMode,
+        setThemeMode,
+        resolvedTheme,
         isQuoteModalOpen,
         openQuoteModal,
         closeQuoteModal,

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { ActivePage } from '../../types';
+import { ThemeToggle } from './ThemeToggle';
 
 export const Navbar: React.FC = () => {
   const { 
@@ -178,6 +179,9 @@ export const Navbar: React.FC = () => {
                 <span>Call Now</span>
               </a>
 
+              {/* 3-Option Theme Switcher (Light / Dark / System) */}
+              <ThemeToggle className="hidden sm:inline-flex" />
+
               {/* Steel Calculator Quick Trigger */}
               <button
                 onClick={() => handleNavClick('calculator')}
@@ -226,15 +230,25 @@ export const Navbar: React.FC = () => {
         <div className="fixed inset-x-0 top-[60px] sm:top-[85px] bottom-0 bg-slate-950/95 backdrop-blur-2xl border-b border-slate-800 shadow-2xl z-50 overflow-y-auto animate-in slide-in-from-top-4 duration-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
-            {/* Top View Mode Bar inside Drawer */}
+            {/* Top View Mode & Theme Switcher inside Drawer */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-2xl bg-slate-900/90 border border-slate-800 mb-8 gap-4">
-              <div>
-                <span className="text-xs font-mono uppercase text-slate-400 block font-bold">
-                  Switch Portal Workspace:
-                </span>
-                <span className="text-[11px] text-slate-500 font-mono">
-                  Currently active: <strong className="text-white uppercase">{userRole} view</strong>
-                </span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <div>
+                  <span className="text-xs font-mono uppercase text-slate-400 block font-bold">
+                    Switch Portal Workspace:
+                  </span>
+                  <span className="text-[11px] text-slate-500 font-mono">
+                    Currently active: <strong className="text-white uppercase">{userRole} view</strong>
+                  </span>
+                </div>
+                
+                {/* Drawer Theme Switcher */}
+                <div className="pt-1 sm:pt-0 sm:border-l sm:border-slate-800 sm:pl-4">
+                  <span className="text-[10px] font-mono uppercase text-slate-400 block font-bold mb-1">
+                    Theme:
+                  </span>
+                  <ThemeToggle />
+                </div>
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto">
