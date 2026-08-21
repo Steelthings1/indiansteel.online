@@ -277,27 +277,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Load state from localStorage or initial fallback
   const [settings, setSettings] = useState<SiteSettings>(() => {
-    const saved = localStorage.getItem('indian_steel_settings');
-    return saved ? JSON.parse(saved) : defaultSettings;
+    // Purge outdated legacy cached settings if existing
+    try {
+      localStorage.removeItem('indian_steel_settings');
+      localStorage.removeItem('indian_steel_settings_v1');
+      localStorage.removeItem('indian_steel_settings_v2');
+      localStorage.removeItem('indian_steel_settings_v3');
+      const saved = localStorage.getItem('indian_steel_settings_v5');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return { ...defaultSettings, ...parsed, phone: parsed.phone || defaultSettings.phone, secondaryPhone: parsed.secondaryPhone || defaultSettings.secondaryPhone, whatsapp: parsed.whatsapp || defaultSettings.whatsapp };
+      }
+    } catch (e) {
+      console.warn('Storage read warning', e);
+    }
+    return defaultSettings;
   });
 
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('indian_steel_products');
+    const saved = localStorage.getItem('indian_steel_products_v2');
     return saved ? JSON.parse(saved) : initialProducts;
   });
 
   const [quoteRequests, setQuoteRequests] = useState<QuoteRequest[]>(() => {
-    const saved = localStorage.getItem('indian_steel_quotes');
+    const saved = localStorage.getItem('indian_steel_quotes_v2');
     return saved ? JSON.parse(saved) : initialQuotes;
   });
 
   const [orders, setOrders] = useState<Order[]>(() => {
-    const saved = localStorage.getItem('indian_steel_orders');
+    const saved = localStorage.getItem('indian_steel_orders_v2');
     return saved ? JSON.parse(saved) : initialOrders;
   });
 
   const [cuttingJobs, setCuttingJobs] = useState<CuttingJob[]>(() => {
-    const saved = localStorage.getItem('indian_steel_jobs');
+    const saved = localStorage.getItem('indian_steel_jobs_v2');
     return saved ? JSON.parse(saved) : initialCuttingJobs;
   });
 
@@ -305,7 +318,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Save changes to localStorage
   useEffect(() => {
-    localStorage.setItem('indian_steel_settings', JSON.stringify(settings));
+    try {
+      localStorage.setItem('indian_steel_settings_v5', JSON.stringify(settings));
+    } catch (e) {}
   }, [settings]);
 
   useEffect(() => {

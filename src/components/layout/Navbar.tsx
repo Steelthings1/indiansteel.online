@@ -95,7 +95,7 @@ export const Navbar: React.FC = () => {
             </span>
             <span className="text-slate-600">|</span>
             <span className="text-slate-300 font-mono">
-              Coimbatore: <strong className="text-white">{settings.phone}</strong>
+              Coimbatore: <a href="tel:+919342472147" className="text-white hover:text-brand-orange">9342472147</a> / <a href="tel:+918056310565" className="text-white hover:text-brand-orange">8056310565</a>
             </span>
           </div>
         </div>
@@ -370,11 +370,17 @@ export const Navbar: React.FC = () => {
                   <p className="text-[11px] text-slate-200">
                     NO 16, V.K Road, sivanandhapuram, saravanampatty, Coimbatore - 641006
                   </p>
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                  <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px]">
                     <span className="text-emerald-400 font-bold">GST: 33AAIFJ0968J1Z6</span>
-                    <a href={`tel:${settings.phone}`} className="text-white hover:text-brand-orange font-bold">
-                      {settings.phone}
-                    </a>
+                    <div className="flex items-center gap-2">
+                      <a href="tel:+919342472147" className="text-white hover:text-brand-orange font-bold font-mono">
+                        9342472147
+                      </a>
+                      <span className="text-slate-500">/</span>
+                      <a href="tel:+918056310565" className="text-white hover:text-brand-orange font-bold font-mono">
+                        8056310565
+                      </a>
+                    </div>
                   </div>
                 </div>
 

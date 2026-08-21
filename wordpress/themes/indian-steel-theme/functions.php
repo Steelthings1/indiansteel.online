@@ -24,7 +24,7 @@ function indian_steel_enqueue_scripts() {
     wp_enqueue_style('indian-steel-app-css', get_template_directory_uri() . '/assets/index-7FmhnyVg.css', array(), '1.7.0');
 
     // Production Bundled JS (React SPA)
-    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-CjzlCdXB.js', array(), '1.7.0', true);
+    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-D7_OfOTM.js', array(), '1.8.0', true);
 }
 add_action('wp_enqueue_scripts', 'indian_steel_enqueue_scripts');
 
