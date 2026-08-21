@@ -17,14 +17,14 @@ function indian_steel_theme_setup() {
 add_action('after_setup_theme', 'indian_steel_theme_setup');
 
 function indian_steel_enqueue_scripts() {
-    // Google Fonts
-    wp_enqueue_style('indian-steel-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;900&display=swap', array(), null);
+    // Google Fonts (Outfit, Plus Jakarta Sans, Space Grotesk, JetBrains Mono)
+    wp_enqueue_style('indian-steel-fonts', 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap', array(), null);
 
     // Production Bundled CSS
-    wp_enqueue_style('indian-steel-app-css', get_template_directory_uri() . '/assets/index-nBaV3mB6.css', array(), '1.0.0');
+    wp_enqueue_style('indian-steel-app-css', get_template_directory_uri() . '/assets/index-DNUTQfq0.css', array(), '1.1.0');
 
     // Production Bundled JS (React SPA)
-    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-DyUIZEXK.js', array(), '1.0.0', true);
+    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-C6XGdWvF.js', array(), '1.1.0', true);
 }
 add_action('wp_enqueue_scripts', 'indian_steel_enqueue_scripts');
 

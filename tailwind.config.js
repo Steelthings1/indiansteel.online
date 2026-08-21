@@ -27,7 +27,7 @@ export default {
           200: '#161920',
           300: '#13151b',
           400: '#0f1115',
-          500: '#0c0d11',
+          500: '#0a0c10',
         },
         brand: {
           orange: '#FF5500',
@@ -39,20 +39,20 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Space Grotesk', 'Barlow', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Outfit', '"Space Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'Consolas', 'monospace'],
       },
       backgroundImage: {
-        'steel-pattern': "radial-gradient(circle at 50% 50%, rgba(255,85,0,0.05) 0%, transparent 60%), linear-gradient(to bottom, rgba(15,17,21,0.98), rgba(22,25,32,0.99))",
-        'metallic-card': "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
-        'metallic-glow': "linear-gradient(90deg, transparent 0%, rgba(255, 85, 0, 0.15) 50%, transparent 100%)",
-        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+        'steel-pattern': "radial-gradient(circle at 50% 50%, rgba(255,85,0,0.05) 0%, transparent 60%), linear-gradient(to bottom, rgba(10,12,16,0.98), rgba(16,19,26,0.99))",
+        'metallic-card': "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)",
+        'metallic-glow': "linear-gradient(90deg, transparent 0%, rgba(255, 85, 0, 0.2) 50%, transparent 100%)",
+        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px)",
       },
       boxShadow: {
-        'industrial': '0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.08)',
-        'orange-glow': '0 0 20px rgba(255, 85, 0, 0.35)',
-        'orange-glow-lg': '0 0 35px rgba(255, 85, 0, 0.5)',
+        'industrial': '0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.1)',
+        'orange-glow': '0 0 25px rgba(255, 85, 0, 0.4)',
+        'orange-glow-lg': '0 0 45px rgba(255, 85, 0, 0.6)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
