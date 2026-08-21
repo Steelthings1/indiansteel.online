@@ -39,6 +39,16 @@ export const SteelCalculator: React.FC = () => {
 
   const [singleWeightKg, setSingleWeightKg] = useState<number>(0);
   const [totalWeightKg, setTotalWeightKg] = useState<number>(0);
+  
+  // Surcharge & Tax Options
+  const [calcCuttingMethod, setCalcCuttingMethod] = useState<'Manual Cutting' | 'Machine Cutting' | 'Laser Cutting'>('Machine Cutting');
+  const [calcDelivery, setCalcDelivery] = useState<'pickup' | 'local' | 'freight'>('pickup');
+  
+  const [rawCost, setRawCost] = useState<number>(0);
+  const [cuttingCost, setCuttingCost] = useState<number>(0);
+  const [deliveryCost, setDeliveryCost] = useState<number>(0);
+  const [taxableSubtotal, setTaxableSubtotal] = useState<number>(0);
+  const [gstAmount, setGstAmount] = useState<number>(0);
   const [estCost, setEstCost] = useState<number>(0);
 
   // Quick Preset Sizing
@@ -82,12 +92,32 @@ export const SteelCalculator: React.FC = () => {
     setSingleWeightKg(singleKg);
     setTotalWeightKg(totalKg);
 
-    // Approximate cost
+    // Calculate Costs with GST 18% & Surcharges
     const mat = materials.find(m => m.density === density) || materials[0];
-    const rawCost = totalKg * (mat.baseRate || 64);
-    const cuttingCost = totalKg * 4; // approx cutting surcharge
-    setEstCost(Math.round(rawCost + cuttingCost));
-  }, [shape, lengthMm, widthMm, outerDiameterMm, innerDiameterMm, thicknessMm, quantity, density]);
+    const materialBase = totalKg * (mat.baseRate || 64);
+    
+    // Cutting surcharge per kg based on method
+    let cutRatePerKg = 5;
+    if (calcCuttingMethod === 'Manual Cutting') cutRatePerKg = 3;
+    if (calcCuttingMethod === 'Laser Cutting') cutRatePerKg = 10;
+    const cutFee = Math.round(totalKg * cutRatePerKg);
+
+    // Delivery surcharge
+    let freightFee = 0;
+    if (calcDelivery === 'local') freightFee = 800;
+    if (calcDelivery === 'freight') freightFee = 1800;
+
+    const subtotal = Math.round(materialBase + cutFee + freightFee);
+    const gst18 = Math.round(subtotal * 0.18); // 18% GST
+    const totalWithGst = subtotal + gst18;
+
+    setRawCost(Math.round(materialBase));
+    setCuttingCost(cutFee);
+    setDeliveryCost(freightFee);
+    setTaxableSubtotal(subtotal);
+    setGstAmount(gst18);
+    setEstCost(totalWithGst);
+  }, [shape, lengthMm, widthMm, outerDiameterMm, innerDiameterMm, thicknessMm, quantity, density, calcCuttingMethod, calcDelivery]);
 
   const handleTransferToQuote = () => {
     let shapeLabel = 'Rectangular Plate';
@@ -307,27 +337,56 @@ export const SteelCalculator: React.FC = () => {
                 </div>
               )}
 
-              {/* Thickness & Quantity */}
-              <div className="grid grid-cols-2 gap-4">
+              {/* Additional Options: Cutting Method & Delivery */}
+              <div className="pt-2 border-t border-slate-800 space-y-3">
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Thickness (mm)</label>
-                  <input
-                    type="number"
-                    min={1}
-                    value={thicknessMm}
-                    onChange={e => setThicknessMm(Math.max(1, Number(e.target.value)))}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                  />
+                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1.5">Processing / Cutting Method</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: 'Manual Cutting', label: 'Manual Flame', extra: '+₹3/kg' },
+                      { id: 'Machine Cutting', label: 'Machine Line', extra: '+₹5/kg' },
+                      { id: 'Laser Cutting', label: 'Fiber Laser', extra: '+₹10/kg' },
+                    ].map(opt => (
+                      <button
+                        type="button"
+                        key={opt.id}
+                        onClick={() => setCalcCuttingMethod(opt.id as any)}
+                        className={`p-2 rounded-xl text-left border text-[11px] font-mono transition-all ${
+                          calcCuttingMethod === opt.id
+                            ? 'bg-brand-orange/20 border-brand-orange text-white font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        <div className="font-bold">{opt.label}</div>
+                        <div className="text-[10px] text-brand-orange">{opt.extra}</div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
+
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Quantity (Pieces)</label>
-                  <input
-                    type="number"
-                    min={1}
-                    value={quantity}
-                    onChange={e => setQuantity(Math.max(1, Number(e.target.value)))}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                  />
+                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1.5">Delivery / Transport Option</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: 'pickup', label: 'Self Pickup', fee: '₹0' },
+                      { id: 'local', label: 'Coimbatore Local', fee: '₹800' },
+                      { id: 'freight', label: 'TN Freight', fee: '₹1,800' },
+                    ].map(d => (
+                      <button
+                        type="button"
+                        key={d.id}
+                        onClick={() => setCalcDelivery(d.id as any)}
+                        className={`p-2 rounded-xl text-left border text-[11px] font-mono transition-all ${
+                          calcDelivery === d.id
+                            ? 'bg-emerald-500/20 border-emerald-500 text-white font-bold'
+                            : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        <div className="font-bold">{d.label}</div>
+                        <div className="text-[10px] text-emerald-400">{d.fee}</div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -337,20 +396,20 @@ export const SteelCalculator: React.FC = () => {
             <div className="lg:col-span-5 space-y-5">
               
               {/* Interactive SVG Geometry Visualizer */}
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 relative flex flex-col items-center justify-center min-h-[170px] overflow-hidden group">
+              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 relative flex flex-col items-center justify-center min-h-[160px] overflow-hidden group">
                 <div className="absolute top-2.5 left-3 text-[10px] font-mono text-slate-400 flex items-center gap-1.5">
                   <Maximize2 className="w-3 h-3 text-brand-orange" />
                   <span>CAD Geometry Visualizer</span>
                 </div>
                 
                 {/* SVG Shape Render */}
-                <div className="w-48 h-32 flex items-center justify-center relative mt-3">
+                <div className="w-48 h-28 flex items-center justify-center relative mt-3">
                   {shape === 'rectangular' && (
                     <div 
                       className="border-2 border-brand-orange bg-brand-orange/15 rounded flex items-center justify-center relative shadow-lg shadow-brand-orange/20"
                       style={{
                         width: `${Math.min(180, Math.max(70, (lengthMm / (lengthMm + widthMm)) * 260))}px`,
-                        height: `${Math.min(100, Math.max(45, (widthMm / (lengthMm + widthMm)) * 260))}px`,
+                        height: `${Math.min(90, Math.max(40, (widthMm / (lengthMm + widthMm)) * 260))}px`,
                       }}
                     >
                       <span className="text-[10px] font-mono text-white font-bold">{lengthMm} x {widthMm}mm</span>
@@ -362,8 +421,8 @@ export const SteelCalculator: React.FC = () => {
                     <div 
                       className="border-2 border-brand-orange bg-brand-orange/15 rounded-full flex items-center justify-center relative shadow-lg shadow-brand-orange/20"
                       style={{
-                        width: `100px`,
-                        height: `100px`,
+                        width: `90px`,
+                        height: `90px`,
                       }}
                     >
                       <span className="text-[10px] font-mono text-white font-bold">Ø {outerDiameterMm}mm</span>
@@ -375,11 +434,11 @@ export const SteelCalculator: React.FC = () => {
                     <div 
                       className="border-2 border-brand-orange bg-brand-orange/15 rounded-full flex items-center justify-center relative shadow-lg shadow-brand-orange/20"
                       style={{
-                        width: `110px`,
-                        height: `110px`,
+                        width: `100px`,
+                        height: `100px`,
                       }}
                     >
-                      <div className="w-12 h-12 rounded-full border-2 border-dashed border-white/60 bg-slate-950 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full border-2 border-dashed border-white/60 bg-slate-950 flex items-center justify-center">
                         <span className="text-[8px] font-mono text-slate-300">Ø{innerDiameterMm}</span>
                       </div>
                       <span className="absolute -bottom-4 text-[9px] font-mono text-slate-400">OD: {outerDiameterMm}mm | T: {thicknessMm}mm</span>
@@ -388,8 +447,8 @@ export const SteelCalculator: React.FC = () => {
                 </div>
               </div>
 
-              {/* Output Results Box */}
-              <div className="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-4">
+              {/* Output Results Box & Full GST 18% Breakdown */}
+              <div className="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3.5">
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
@@ -398,24 +457,51 @@ export const SteelCalculator: React.FC = () => {
                   </div>
 
                   <div className="p-3 rounded-xl bg-gradient-to-br from-brand-orange/20 to-orange-950/30 border border-brand-orange/40">
-                    <span className="text-[10px] font-mono text-brand-orange font-bold uppercase block">Total ({quantity} pcs):</span>
+                    <span className="text-[10px] font-mono text-brand-orange font-bold uppercase block">Total Weight ({quantity} pcs):</span>
                     <span className="text-2xl font-black font-display text-white">{totalWeightKg.toLocaleString()} <span className="text-xs font-normal text-slate-300">kg</span></span>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
-                  <div>
-                    <span className="text-emerald-400 font-mono font-bold block text-[10px] uppercase">Indicative Estimated Cost:</span>
-                    <span className="text-xl font-black font-display text-white">₹{estCost.toLocaleString()}</span>
+                {/* Itemized Price & GST 18% Surcharge Breakdown */}
+                <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-xs font-mono">
+                  <div className="flex justify-between text-slate-400">
+                    <span>Material Base ({totalWeightKg} kg):</span>
+                    <span className="text-white">₹{rawCost.toLocaleString()}</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400 text-right">≈ {(totalWeightKg / 1000).toFixed(3)} MT</span>
+
+                  <div className="flex justify-between text-slate-400">
+                    <span>{calcCuttingMethod} Charge:</span>
+                    <span className="text-white">₹{cuttingCost.toLocaleString()}</span>
+                  </div>
+
+                  {deliveryCost > 0 && (
+                    <div className="flex justify-between text-slate-400">
+                      <span>Freight / Delivery Charge:</span>
+                      <span className="text-white">₹{deliveryCost.toLocaleString()}</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-slate-300 pt-1.5 border-t border-slate-800">
+                    <span>Taxable Subtotal:</span>
+                    <span className="text-white font-bold">₹{taxableSubtotal.toLocaleString()}</span>
+                  </div>
+
+                  <div className="flex justify-between text-brand-orange font-semibold">
+                    <span>GST @ 18% (9% CGST + 9% SGST):</span>
+                    <span>+ ₹{gstAmount.toLocaleString()}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center pt-2 border-t border-slate-700/80 text-sm">
+                    <span className="font-bold text-white uppercase">Grand Total (Incl. 18% GST):</span>
+                    <span className="text-xl font-black font-display text-emerald-400">₹{estCost.toLocaleString()}</span>
+                  </div>
                 </div>
 
                 {/* Disclaimer */}
-                <div className="flex items-start gap-2 p-2.5 rounded-lg bg-slate-900/60 text-[10px] text-slate-400 border border-slate-800/80">
-                  <Info className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="flex items-start gap-2 p-2 rounded-lg bg-slate-900/60 text-[10px] text-slate-400 border border-slate-800/80 font-mono">
+                  <Info className="w-3.5 h-3.5 text-brand-orange shrink-0 mt-0.5" />
                   <p>
-                    Nominal density: {density} g/cm³. Final billing based on actual weighbridge / scale measurement.
+                    IS 2062 Mill Plate Density: {density} g/cm³. GST invoice (33AAIFJ0968J1Z6) generated with input tax credit support.
                   </p>
                 </div>
 
@@ -429,7 +515,6 @@ export const SteelCalculator: React.FC = () => {
                   <span>Transfer Dimensions to Quote</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-
               </div>
 
             </div>

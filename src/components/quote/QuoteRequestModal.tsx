@@ -86,10 +86,40 @@ export const QuoteRequestModal: React.FC = () => {
     return Number(((weightGrams / 1000) * quantity).toFixed(2));
   };
 
-  const calculateEstPrice = () => {
+  const calculateEstMaterialCost = () => {
     const wt = calculateEstWeight();
-    const subtotal = wt * (settings.defaultBasePricePerKg || 64);
-    return Math.round(subtotal);
+    const rate = settings.defaultBasePricePerKg || 64;
+    return Math.round(wt * rate);
+  };
+
+  const calculateEstCuttingFee = () => {
+    const wt = calculateEstWeight();
+    let cutRate = 5;
+    if (cuttingMethod === 'Manual Cutting') cutRate = 3;
+    if (cuttingMethod === 'Laser Cutting') cutRate = 10;
+    return Math.round(wt * cutRate);
+  };
+
+  const calculateEstDeliveryFee = () => {
+    if (deliveryOption === 'Express Site Delivery') return 1800;
+    if (deliveryOption === 'Standard Freight Delivery') return 800;
+    return 0;
+  };
+
+  const calculateTaxableSubtotal = () => {
+    return calculateEstMaterialCost() + calculateEstCuttingFee() + calculateEstDeliveryFee();
+  };
+
+  const calculateGst18 = () => {
+    return Math.round(calculateTaxableSubtotal() * 0.18);
+  };
+
+  const calculateGrandTotal = () => {
+    return calculateTaxableSubtotal() + calculateGst18();
+  };
+
+  const calculateEstPrice = () => {
+    return calculateGrandTotal();
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -114,6 +144,11 @@ export const QuoteRequestModal: React.FC = () => {
     }
 
     const estWeight = calculateEstWeight();
+    const materialCost = calculateEstMaterialCost();
+    const cuttingFee = calculateEstCuttingFee();
+    const deliveryFee = calculateEstDeliveryFee();
+    const tax18 = calculateGst18();
+    const grandTotal = calculateGrandTotal();
     
     const quoteId = addQuoteRequest({
       customerName,
@@ -132,7 +167,11 @@ export const QuoteRequestModal: React.FC = () => {
       additionalRequirements,
       drawingFileName: drawingFileName || undefined,
       drawingFileUrl: drawingFileName ? '#' : undefined,
-      estimatedWeightKg: estWeight
+      estimatedWeightKg: estWeight,
+      quotedPrice: materialCost + cuttingFee,
+      quotedDeliveryFee: deliveryFee,
+      quotedTax: tax18,
+      quotedTotal: grandTotal
     });
 
     setGeneratedQuoteId(quoteId);
@@ -572,6 +611,48 @@ export const QuoteRequestModal: React.FC = () => {
                       className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
                     />
                   </div>
+                    <div className="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2.5 font-mono text-xs">
+                      <div className="flex items-center justify-between text-[11px] text-slate-400 font-bold uppercase border-b border-slate-800 pb-2">
+                        <span>Order Cost Breakdown</span>
+                        <span className="text-brand-orange">Est. Weight: {calculateEstWeight()} kg</span>
+                      </div>
+
+                      <div className="flex justify-between text-slate-400">
+                        <span>Material Raw Cost ({calculateEstWeight()} kg @ ₹{settings.defaultBasePricePerKg || 64}/kg):</span>
+                        <span className="text-white font-semibold">₹{calculateEstMaterialCost().toLocaleString()}</span>
+                      </div>
+
+                      <div className="flex justify-between text-slate-400">
+                        <span>{cuttingMethod} Processing Charge:</span>
+                        <span className="text-white font-semibold">₹{calculateEstCuttingFee().toLocaleString()}</span>
+                      </div>
+
+                      {calculateEstDeliveryFee() > 0 && (
+                        <div className="flex justify-between text-slate-400">
+                          <span>{deliveryOption}:</span>
+                          <span className="text-white font-semibold">₹{calculateEstDeliveryFee().toLocaleString()}</span>
+                        </div>
+                      )}
+
+                      <div className="flex justify-between text-slate-300 pt-1.5 border-t border-slate-800">
+                        <span>Taxable Value (Subtotal):</span>
+                        <span className="text-white font-bold">₹{calculateTaxableSubtotal().toLocaleString()}</span>
+                      </div>
+
+                      <div className="flex justify-between text-brand-orange font-bold">
+                        <span>GST @ 18% (9% CGST + 9% SGST):</span>
+                        <span>+ ₹{calculateGst18().toLocaleString()}</span>
+                      </div>
+
+                      <div className="flex justify-between items-center pt-2 border-t border-slate-700 text-sm">
+                        <span className="font-bold text-white uppercase">Grand Total (Incl. 18% GST):</span>
+                        <span className="text-xl font-black font-display text-emerald-400">₹{calculateGrandTotal().toLocaleString()}</span>
+                      </div>
+
+                      <div className="text-[10px] text-slate-500 pt-1">
+                        * GST Invoice (33AAIFJ0968J1Z6) will be generated. Final amount confirmed upon actual electronic scale weighing.
+                      </div>
+                    </div>
 
                   <div className="pt-3 flex items-center justify-between">
                     <button

@@ -98,11 +98,13 @@ export const ProductsCatalogue: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Benchmark Price Badge */}
+                  {/* Benchmark Price Badge with GST 18% tag */}
                   {product.pricePerKg && (
-                    <div className="absolute bottom-3 right-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700 text-right">
-                      <div className="text-[10px] font-mono text-slate-400">Benchmark Rate:</div>
-                      <div className="text-sm font-black font-mono text-emerald-400">₹{product.pricePerKg}/kg</div>
+                    <div className="absolute bottom-3 right-4 bg-slate-900/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700 text-right shadow-lg">
+                      <div className="text-[10px] font-mono text-slate-400">Mill Base Rate:</div>
+                      <div className="text-sm font-black font-mono text-emerald-400">
+                        ₹{product.pricePerKg}/kg <span className="text-[10px] font-normal text-brand-orange">(+ 18% GST)</span>
+                      </div>
                     </div>
                   )}
                 </div>

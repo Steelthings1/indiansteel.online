@@ -80,13 +80,14 @@ export const AdminDashboard: React.FC = () => {
 
   const handleOpenPricingModal = (quote: QuoteRequest) => {
     setEditingQuote(quote);
-    const estSubtotal = Math.round(quote.estimatedWeightKg * settings.defaultBasePricePerKg);
-    const estTax = Math.round(estSubtotal * 0.18);
+    const estSubtotal = quote.quotedPrice || Math.round(quote.estimatedWeightKg * (settings.defaultBasePricePerKg || 64));
+    const deliveryFee = quote.quotedDeliveryFee !== undefined ? quote.quotedDeliveryFee : 800;
+    const estTax = Math.round((estSubtotal + deliveryFee) * 0.18);
     setPriceForm({
-      quotedPrice: quote.quotedPrice || estSubtotal,
+      quotedPrice: estSubtotal,
       quotedTax: quote.quotedTax || estTax,
-      quotedDeliveryFee: quote.quotedDeliveryFee || 1000,
-      adminNotes: quote.adminNotes || 'Price calculated based on current steel rate.'
+      quotedDeliveryFee: deliveryFee,
+      adminNotes: quote.adminNotes || 'IS 2062 Mill Certified Grade. 18% GST invoice (33AAIFJ0968J1Z6).'
     });
   };
 
@@ -732,17 +733,35 @@ export const AdminDashboard: React.FC = () => {
 
               <form onSubmit={handleSaveQuotation} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Material Subtotal (₹)</label>
+                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Material & Processing Subtotal (₹)</label>
                   <input
                     type="number"
                     required
                     value={priceForm.quotedPrice}
-                    onChange={e => setPriceForm({ ...priceForm, quotedPrice: Number(e.target.value) })}
+                    onChange={e => {
+                      const newSubtotal = Number(e.target.value);
+                      const newGst = Math.round((newSubtotal + priceForm.quotedDeliveryFee) * 0.18);
+                      setPriceForm({ ...priceForm, quotedPrice: newSubtotal, quotedTax: newGst });
+                    }}
                     className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Freight / Delivery Fee (₹)</label>
+                    <input
+                      type="number"
+                      required
+                      value={priceForm.quotedDeliveryFee}
+                      onChange={e => {
+                        const newDelivery = Number(e.target.value);
+                        const newGst = Math.round((priceForm.quotedPrice + newDelivery) * 0.18);
+                        setPriceForm({ ...priceForm, quotedDeliveryFee: newDelivery, quotedTax: newGst });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono"
+                    />
+                  </div>
                   <div>
                     <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">GST Tax (18% ₹)</label>
                     <input
@@ -750,16 +769,6 @@ export const AdminDashboard: React.FC = () => {
                       required
                       value={priceForm.quotedTax}
                       onChange={e => setPriceForm({ ...priceForm, quotedTax: Number(e.target.value) })}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Freight / Delivery Fee (₹)</label>
-                    <input
-                      type="number"
-                      required
-                      value={priceForm.quotedDeliveryFee}
-                      onChange={e => setPriceForm({ ...priceForm, quotedDeliveryFee: Number(e.target.value) })}
                       className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono"
                     />
                   </div>
