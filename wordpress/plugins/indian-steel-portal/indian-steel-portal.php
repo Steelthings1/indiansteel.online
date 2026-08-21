@@ -17,7 +17,7 @@ function indian_steel_portal_shortcode() {
     // Enqueue Assets (Outfit, Plus Jakarta Sans, Space Grotesk, JetBrains Mono)
     wp_enqueue_style('indian-steel-fonts', 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap', array(), null);
     wp_enqueue_style('indian-steel-css', plugins_url('assets/index-Cgucakj2.css', __FILE__), array(), '1.3.0');
-    wp_enqueue_script('indian-steel-js', plugins_url('assets/index-DkVmfLkA.js', __FILE__), array(), '1.3.0', true);
+    wp_enqueue_script('indian-steel-js', plugins_url('assets/index-Diufyuj5.js', __FILE__), array(), '1.4.0', true);
 
     ob_start();
     ?>

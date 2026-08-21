@@ -617,11 +617,21 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Business Phone Number</label>
+                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Primary Phone Number</label>
                   <input
                     type="text"
                     value={settingsForm.phone}
                     onChange={e => setSettingsForm({ ...settingsForm, phone: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Secondary Phone Number</label>
+                  <input
+                    type="text"
+                    value={settingsForm.secondaryPhone || ''}
+                    onChange={e => setSettingsForm({ ...settingsForm, secondaryPhone: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs"
                   />
                 </div>

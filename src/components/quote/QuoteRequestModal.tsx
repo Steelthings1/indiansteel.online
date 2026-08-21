@@ -94,6 +94,25 @@ export const QuoteRequestModal: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (step === 1) {
+      if (!customerName.trim() || !mobileNumber.trim() || !email.trim()) {
+        alert('Please fill in your Name, Mobile Number, and Email to proceed.');
+        return;
+      }
+      setStep(2);
+      return;
+    }
+
+    if (step === 2) {
+      if (length <= 0 || width <= 0 || thickness <= 0 || quantity <= 0) {
+        alert('Please provide valid positive values for length, width, thickness, and quantity.');
+        return;
+      }
+      setStep(3);
+      return;
+    }
+
     const estWeight = calculateEstWeight();
     
     const quoteId = addQuoteRequest({
@@ -103,10 +122,10 @@ export const QuoteRequestModal: React.FC = () => {
       email,
       materialType,
       grade,
-      thickness,
-      length,
-      width,
-      quantity,
+      thickness: Number(thickness) || 12,
+      length: Number(length) || 1000,
+      width: Number(width) || 1000,
+      quantity: Number(quantity) || 1,
       cuttingMethod,
       requiredShape,
       deliveryOption,
