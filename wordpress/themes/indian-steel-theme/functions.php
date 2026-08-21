@@ -21,10 +21,10 @@ function indian_steel_enqueue_scripts() {
     wp_enqueue_style('indian-steel-fonts', 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap', array(), null);
 
     // Production Bundled CSS
-    wp_enqueue_style('indian-steel-app-css', get_template_directory_uri() . '/assets/index-LzpiOz8m.css', array(), '2.7.0');
+    wp_enqueue_style('indian-steel-app-css', get_template_directory_uri() . '/assets/index-D4DaCWZq.css', array(), '2.8.0');
 
     // Production Bundled JS (React SPA)
-    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-DH-hqGii.js', array(), '2.7.0', true);
+    wp_enqueue_script('indian-steel-app-js', get_template_directory_uri() . '/assets/index-uxu5GawI.js', array(), '2.8.0', true);
 }
 add_action('wp_enqueue_scripts', 'indian_steel_enqueue_scripts');
 
