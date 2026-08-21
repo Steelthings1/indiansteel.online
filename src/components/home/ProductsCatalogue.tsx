@@ -5,7 +5,11 @@ import {
   FileText, 
   Filter, 
   ArrowRight,
-  ShieldAlert
+  ShieldAlert,
+  Sparkles,
+  Layers,
+  Award,
+  ChevronRight
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { Product } from '../../types';
@@ -13,6 +17,7 @@ import { Product } from '../../types';
 export const ProductsCatalogue: React.FC = () => {
   const { products, openQuoteModal } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [activeTabMap, setActiveTabMap] = useState<{ [productId: string]: 'overview' | 'specs' | 'apps' }>({});
 
   const categories = ['All', 'MS Plates', 'MS Sheets', 'Custom Steel Pieces', 'Industrial Steel Materials'];
 
@@ -20,20 +25,26 @@ export const ProductsCatalogue: React.FC = () => {
     ? products 
     : products.filter(p => p.category === selectedCategory);
 
+  const getProductTab = (id: string) => activeTabMap[id] || 'overview';
+  const setProductTab = (id: string, tab: 'overview' | 'specs' | 'apps') => {
+    setActiveTabMap(prev => ({ ...prev, [id]: tab }));
+  };
+
   return (
-    <section className="py-20 bg-[#11141A] relative border-b border-slate-800">
+    <section className="py-20 bg-[#0E1117] relative border-b border-slate-800" id="products">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="text-xs font-mono font-bold text-brand-orange uppercase tracking-widest mb-1">
-            Material Inventory
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/30 text-brand-orange text-xs font-mono font-bold uppercase tracking-wider mb-2">
+            <Layers className="w-3.5 h-3.5" />
+            <span>Mill Certified Steel Stock</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black font-display text-white mb-3">
-            Our Steel Product Catalogue
+            Our Steel Product Inventory
           </h2>
           <p className="text-sm text-slate-400">
-            Sourced directly from reputed steel mills with full quality traceability. Supplied raw or pre-cut to your exact project measurements.
+            Sourced directly from leading steel mills with full chemical and mechanical mill test certificate traceability. Available in full standard plates or cut to size.
           </p>
         </div>
 
@@ -45,8 +56,8 @@ export const ProductsCatalogue: React.FC = () => {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
                 selectedCategory === cat
-                  ? 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/20'
-                  : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
+                  ? 'bg-brand-orange text-white border-brand-orange shadow-lg shadow-brand-orange/25'
+                  : 'bg-slate-900/90 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
               }`}
             >
               {cat}
@@ -56,87 +67,125 @@ export const ProductsCatalogue: React.FC = () => {
 
         {/* Product Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="industrial-card rounded-2xl overflow-hidden flex flex-col md:flex-row group"
-            >
-              {/* Product Image */}
-              <div className="md:w-5/12 relative h-64 md:h-auto overflow-hidden bg-slate-950">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-950/90" />
-                <span className="absolute top-3 left-3 text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded bg-slate-900/90 text-brand-orange border border-brand-orange/30">
-                  {product.category}
-                </span>
-              </div>
+          {filteredProducts.map((product) => {
+            const activeTab = getProductTab(product.id);
 
-              {/* Product Content */}
-              <div className="md:w-7/12 p-6 flex flex-col justify-between space-y-4">
-                <div>
-                  <h3 className="text-xl font-bold font-display text-white mb-2 group-hover:text-brand-orange transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                    {product.description}
-                  </p>
-
-                  {/* Thickness / Specifications */}
-                  <div className="mb-4">
-                    <div className="text-[11px] font-mono text-slate-400 uppercase mb-1.5 font-semibold">
-                      Available Thickness / Gauge:
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {product.thicknesses.map((th, i) => (
-                        <span key={i} className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
-                          {th}
-                        </span>
-                      ))}
-                    </div>
+            return (
+              <div
+                key={product.id}
+                className="industrial-card rounded-2xl overflow-hidden flex flex-col group border-slate-700/80"
+              >
+                {/* Product Top Header & Media */}
+                <div className="relative h-60 w-full overflow-hidden bg-slate-950">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#161A22] via-transparent to-transparent" />
+                  
+                  {/* Category & Stock Badges */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-bold uppercase px-3 py-1 rounded-lg bg-slate-950/90 text-brand-orange border border-brand-orange/40 backdrop-blur-md">
+                      {product.category}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-md flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      In Stock
+                    </span>
                   </div>
 
-                  {/* Typical Applications */}
-                  <div>
-                    <div className="text-[11px] font-mono text-slate-400 uppercase mb-1.5 font-semibold">
-                      Typical Applications:
+                  {/* Benchmark Price Badge */}
+                  {product.pricePerKg && (
+                    <div className="absolute bottom-3 right-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700 text-right">
+                      <div className="text-[10px] font-mono text-slate-400">Benchmark Rate:</div>
+                      <div className="text-sm font-black font-mono text-emerald-400">₹{product.pricePerKg}/kg</div>
                     </div>
-                    <ul className="grid grid-cols-2 gap-1 text-[11px] text-slate-300">
-                      {product.applications.slice(0, 4).map((app, i) => (
-                        <li key={i} className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3 text-brand-orange shrink-0" />
-                          <span className="truncate">{app}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
                 </div>
 
-                {/* Card Footer Action */}
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
+                {/* Content Body with Tab Controls */}
+                <div className="p-6 flex flex-col justify-between flex-grow space-y-4">
                   <div>
-                    {product.pricePerKg && (
-                      <div className="text-xs font-mono text-slate-400">
-                        Indicative: <span className="text-white font-bold">₹{product.pricePerKg}/kg</span>
+                    <h3 className="text-xl font-bold font-display text-white mb-2 group-hover:text-brand-orange transition-colors">
+                      {product.name}
+                    </h3>
+
+                    {/* Interactive Sub-Tabs for Specs */}
+                    <div className="flex items-center gap-2 border-b border-slate-800 pb-2 mb-3 text-xs font-mono">
+                      <button
+                        onClick={() => setProductTab(product.id, 'overview')}
+                        className={`px-2.5 py-1 rounded-lg transition-colors ${activeTab === 'overview' ? 'bg-slate-800 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        Overview
+                      </button>
+                      <button
+                        onClick={() => setProductTab(product.id, 'specs')}
+                        className={`px-2.5 py-1 rounded-lg transition-colors ${activeTab === 'specs' ? 'bg-slate-800 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        Thicknesses ({product.thicknesses.length})
+                      </button>
+                      <button
+                        onClick={() => setProductTab(product.id, 'apps')}
+                        className={`px-2.5 py-1 rounded-lg transition-colors ${activeTab === 'apps' ? 'bg-slate-800 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        Applications
+                      </button>
+                    </div>
+
+                    {activeTab === 'overview' && (
+                      <p className="text-xs text-slate-300 leading-relaxed mb-4 min-h-[48px]">
+                        {product.description}
+                      </p>
+                    )}
+
+                    {activeTab === 'specs' && (
+                      <div className="space-y-2 mb-4 min-h-[48px]">
+                        <div className="text-[11px] font-mono text-slate-400">Available Standard Thicknesses:</div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {product.thicknesses.map((th, i) => (
+                            <button
+                              key={i}
+                              onClick={() => openQuoteModal({ materialType: product.name, thickness: parseFloat(th) || 12 })}
+                              className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 hover:bg-brand-orange/20 text-slate-200 hover:text-brand-orange border border-slate-800 hover:border-brand-orange/40 transition-colors"
+                            >
+                              {th}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'apps' && (
+                      <div className="space-y-1 mb-4 min-h-[48px]">
+                        <ul className="grid grid-cols-2 gap-1.5 text-xs text-slate-300">
+                          {product.applications.map((app, i) => (
+                            <li key={i} className="flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                              <span className="truncate">{app}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
 
-                  <button
-                    onClick={() => openQuoteModal({ materialType: product.name })}
-                    className="px-4 py-2.5 rounded-xl bg-brand-orange hover:bg-orange-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-orange/20 transition-all flex items-center gap-1.5"
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>Request Quote</span>
-                  </button>
+                  {/* Footer Action Bar */}
+                  <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
+                    <button
+                      onClick={() => openQuoteModal({ materialType: product.name })}
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-brand-orange text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-orange/20 transition-all flex items-center justify-center gap-2"
+                    >
+                      <FileText className="w-4 h-4" />
+                      <span>Request Custom Cut Quote</span>
+                    </button>
+                  </div>
+
                 </div>
 
               </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

@@ -10,7 +10,12 @@ import {
   Ruler, 
   Zap, 
   Truck, 
-  Send 
+  Send,
+  Sparkles,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { CuttingMethod, PlateShape, DeliveryOption } from '../../types';
@@ -23,6 +28,8 @@ export const QuoteRequestModal: React.FC = () => {
     addQuoteRequest, 
     settings 
   } = useApp();
+
+  const [step, setStep] = useState<1 | 2 | 3>(1);
 
   const [customerName, setCustomerName] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -47,7 +54,7 @@ export const QuoteRequestModal: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [generatedQuoteId, setGeneratedQuoteId] = useState('');
 
-  // Prefill when modal opens or prefill data changes
+  // Prefill when modal opens
   useEffect(() => {
     if (quoteModalPrefill) {
       if (quoteModalPrefill.thickness) setThickness(quoteModalPrefill.thickness);
@@ -77,6 +84,12 @@ export const QuoteRequestModal: React.FC = () => {
     const tCm = thickness / 10;
     const weightGrams = (lCm * wCm * tCm) * 7.85;
     return Number(((weightGrams / 1000) * quantity).toFixed(2));
+  };
+
+  const calculateEstPrice = () => {
+    const wt = calculateEstWeight();
+    const subtotal = wt * (settings.defaultBasePricePerKg || 64);
+    return Math.round(subtotal);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -110,79 +123,119 @@ export const QuoteRequestModal: React.FC = () => {
   const handleResetAndClose = () => {
     setIsSubmitted(false);
     setGeneratedQuoteId('');
+    setStep(1);
     closeQuoteModal();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
       
-      <div className="relative w-full max-w-4xl bg-[#11141A] border border-slate-700 rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-4xl bg-[#101319] border border-slate-700 rounded-3xl shadow-2xl overflow-hidden my-8 max-h-[92vh] flex flex-col">
         
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 bg-[#0B0D12] border-b border-slate-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center shadow-lg shadow-brand-orange/20">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-display font-black text-lg text-white uppercase tracking-wider">
-                Get a Quote — indiansteel.online
+                Instant Cutting Quotation Engine
               </h3>
               <p className="text-[11px] font-mono text-slate-400">
-                indiansteel.online • Custom Steel Sizing, Plate Retail & Cutting Services
+                indiansteel.online • Accurate Dimension Sizing & Mill Certified Material
               </p>
             </div>
           </div>
 
           <button
             onClick={handleResetAndClose}
-            className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
+        {/* Multi-Step Progress Indicator */}
+        {!isSubmitted && (
+          <div className="bg-slate-950 px-6 py-2.5 border-b border-slate-800/80 flex items-center justify-between text-xs font-mono">
+            <div className="flex items-center gap-6">
+              <button 
+                onClick={() => setStep(1)} 
+                className={`flex items-center gap-1.5 ${step === 1 ? 'text-brand-orange font-bold' : 'text-slate-400'}`}
+              >
+                <span className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px]">1</span>
+                <span>Contact Info</span>
+              </button>
+              <span className="text-slate-600">→</span>
+              <button 
+                onClick={() => setStep(2)} 
+                className={`flex items-center gap-1.5 ${step === 2 ? 'text-brand-orange font-bold' : 'text-slate-400'}`}
+              >
+                <span className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px]">2</span>
+                <span>Dimensions & Specs</span>
+              </button>
+              <span className="text-slate-600">→</span>
+              <button 
+                onClick={() => setStep(3)} 
+                className={`flex items-center gap-1.5 ${step === 3 ? 'text-brand-orange font-bold' : 'text-slate-400'}`}
+              >
+                <span className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px]">3</span>
+                <span>Cutting & CAD Files</span>
+              </button>
+            </div>
+
+            <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-400">
+              <span>Estimated Weight: <strong className="text-brand-orange">{calculateEstWeight()} kg</strong></span>
+            </div>
+          </div>
+        )}
+
         {/* Content Body */}
         <div className="p-6 overflow-y-auto space-y-6">
           
           {isSubmitted ? (
-            <div className="py-12 px-6 text-center space-y-5">
+            <div className="py-12 px-6 text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
               <div className="space-y-2">
                 <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">
-                  Quote Submitted Successfully
+                  Quote Request Received
                 </span>
-                <h3 className="text-2xl font-black font-display text-white">
-                  Thank You. Your requirement has been received.
+                <h3 className="text-2xl sm:text-3xl font-black font-display text-white">
+                  Thank You! Your specification has been logged.
                 </h3>
                 <p className="text-sm text-slate-300 max-w-md mx-auto">
-                  Our engineering & sales team will review your specifications and contact you shortly with an official quotation.
+                  Our engineering team is calculating nested cutting efficiency and will contact you with a binding quotation shortly.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 inline-block max-w-sm w-full text-left">
-                <div className="text-[10px] font-mono text-slate-400 uppercase">Quote Reference Number:</div>
-                <div className="text-xl font-bold font-mono text-brand-orange">{generatedQuoteId}</div>
-                <div className="text-[11px] text-slate-400 mt-2 border-t border-slate-800 pt-2">
-                  Customer: <span className="text-white">{customerName}</span> ({mobileNumber})
+              <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 inline-block max-w-md w-full text-left space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                  <span className="text-[10px] font-mono text-slate-400 uppercase">Quote Tracking ID:</span>
+                  <span className="text-lg font-bold font-mono text-brand-orange">{generatedQuoteId}</span>
+                </div>
+                <div className="text-xs text-slate-300 space-y-1 font-mono">
+                  <div>Customer: <strong className="text-white">{customerName}</strong> ({mobileNumber})</div>
+                  <div>Specification: {materialType} • {thickness}mm • Qty: {quantity}</div>
+                  <div>Estimated Weight: <strong className="text-emerald-400">{calculateEstWeight()} kg</strong></div>
                 </div>
               </div>
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
                   onClick={handleResetAndClose}
-                  className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase"
+                  className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase"
                 >
                   Close Window
                 </button>
                 <a
-                  href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello Indian Steel, I just submitted quote reference ${generatedQuoteId} for ${materialType}. Please assist.`)}`}
+                  href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello Indian Steel (indiansteel.online), I just submitted quote ${generatedQuoteId} for ${materialType} (${thickness}mm). Please review.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase flex items-center gap-2 shadow-lg shadow-emerald-600/30"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Notify via WhatsApp</span>
@@ -192,263 +245,328 @@ export const QuoteRequestModal: React.FC = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               
-              {/* Section 1: Customer Info */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-800 pb-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>1. Contact & Company Details</span>
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Customer Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={customerName}
-                      onChange={e => setCustomerName(e.target.value)}
-                      placeholder="Full Name"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Company / Workshop Name</label>
-                    <input
-                      type="text"
-                      value={companyName}
-                      onChange={e => setCompanyName(e.target.value)}
-                      placeholder="e.g. Apex Fabricators"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Mobile Number *</label>
-                    <input
-                      type="tel"
-                      required
-                      value={mobileNumber}
-                      onChange={e => setMobileNumber(e.target.value)}
-                      placeholder="+91 98765 43210"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder="email@domain.com"
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 2: Material & Specs */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-800 pb-2">
-                  <Ruler className="w-4 h-4" />
-                  <span>2. Material & Dimensions Specifications</span>
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Material Type</label>
-                    <select
-                      value={materialType}
-                      onChange={e => setMaterialType(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    >
-                      {settings.materialsList.map(mat => (
-                        <option key={mat} value={mat}>{mat}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Steel Grade</label>
-                    <select
-                      value={grade}
-                      onChange={e => setGrade(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    >
-                      {settings.gradesList.map(g => (
-                        <option key={g} value={g}>{g}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Thickness (mm) *</label>
-                    <input
-                      type="number"
-                      required
-                      min={1}
-                      value={thickness}
-                      onChange={e => setThickness(Number(e.target.value))}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Length (mm) *</label>
-                    <input
-                      type="number"
-                      required
-                      min={10}
-                      value={length}
-                      onChange={e => setLength(Number(e.target.value))}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Width (mm) *</label>
-                    <input
-                      type="number"
-                      required
-                      min={10}
-                      value={width}
-                      onChange={e => setWidth(Number(e.target.value))}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Quantity (Pcs) *</label>
-                    <input
-                      type="number"
-                      required
-                      min={1}
-                      value={quantity}
-                      onChange={e => setQuantity(Number(e.target.value))}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-xs flex items-center justify-between font-mono">
-                  <span className="text-slate-400">Calculated Est Weight:</span>
-                  <span className="text-brand-orange font-bold text-sm">{calculateEstWeight()} kg</span>
-                </div>
-              </div>
-
-              {/* Section 3: Cutting Method & Shape */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-800 pb-2">
-                  <Zap className="w-4 h-4" />
-                  <span>3. Cutting Method & Required Shape</span>
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Cutting Method</label>
-                    <select
-                      value={cuttingMethod}
-                      onChange={e => setCuttingMethod(e.target.value as CuttingMethod)}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    >
-                      <option value="Manual Cutting">Manual Oxy-Fuel Cutting</option>
-                      <option value="Machine Cutting">Machine Linear/Profile Cutting</option>
-                      <option value="Laser Cutting">CNC Fiber Laser Precision Cutting</option>
-                      <option value="Saw Cutting">Cold Saw Cutting</option>
-                    </select>
+              {/* STEP 1: CONTACT DETAILS */}
+              {step === 1 && (
+                <div className="space-y-5 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5">
+                      <Building2 className="w-4 h-4" />
+                      <span>Step 1: Contact & Delivery Information</span>
+                    </h4>
+                    <span className="text-[10px] font-mono text-slate-400">Step 1 of 3</span>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Required Shape</label>
-                    <select
-                      value={requiredShape}
-                      onChange={e => setRequiredShape(e.target.value as PlateShape)}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                    >
-                      <option value="Rectangular Plate">Rectangular Plate</option>
-                      <option value="Circular Disc">Circular Disc</option>
-                      <option value="Ring / Flange">Ring / Pipe Flange</option>
-                      <option value="L-Angle / Custom Profile">L-Angle / Gusset Profile</option>
-                      <option value="CAD Drawing Profile">CAD Drawing Profile</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Delivery / Pickup Preference</label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {[
-                      'Pickup from Workshop',
-                      'Standard Freight Delivery',
-                      'Express Site Delivery'
-                    ].map(opt => (
-                      <button
-                        type="button"
-                        key={opt}
-                        onClick={() => setDeliveryOption(opt as DeliveryOption)}
-                        className={`p-2.5 rounded-lg border text-xs font-semibold transition-all ${
-                          deliveryOption === opt
-                            ? 'bg-brand-orange/20 border-brand-orange text-white'
-                            : 'bg-slate-900 border-slate-800 text-slate-400'
-                        }`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 4: File Upload & Additional Notes */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-800 pb-2">
-                  <UploadCloud className="w-4 h-4" />
-                  <span>4. Upload CAD Drawing / File (Optional)</span>
-                </h4>
-
-                {/* File Dropzone */}
-                <div className="border-2 border-dashed border-slate-700 hover:border-brand-orange/60 rounded-xl p-4 text-center bg-slate-900/60 transition-colors">
-                  <input
-                    type="file"
-                    id="drawing-upload"
-                    accept=".dxf,.dwg,.pdf,.jpg,.jpeg,.png"
-                    onChange={handleFileChange}
-                    className="hidden"
-                  />
-                  <label htmlFor="drawing-upload" className="cursor-pointer space-y-2 block">
-                    <UploadCloud className="w-8 h-8 text-brand-orange mx-auto" />
-                    <div className="text-xs text-slate-300">
-                      {drawingFileName ? (
-                        <span className="text-emerald-400 font-bold flex items-center justify-center gap-1">
-                          <FileCheck className="w-4 h-4" /> {drawingFileName}
-                        </span>
-                      ) : (
-                        <span>Click or Drag DXF, DWG, PDF, JPG, PNG drawing file here</span>
-                      )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Customer / Contact Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={customerName}
+                        onChange={e => setCustomerName(e.target.value)}
+                        placeholder="e.g. Rajesh Sharma"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      />
                     </div>
-                    <span className="text-[10px] text-slate-500 font-mono block">Max file size 25MB</span>
-                  </label>
-                </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Company / Workshop Name</label>
+                      <input
+                        type="text"
+                        value={companyName}
+                        onChange={e => setCompanyName(e.target.value)}
+                        placeholder="e.g. Apex Fabricators Pvt Ltd"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Mobile Number (WhatsApp) *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={mobileNumber}
+                        onChange={e => setMobileNumber(e.target.value)}
+                        placeholder="+91 98765 43210"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Email Address *</label>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        placeholder="sales@company.com"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Additional Requirements / Notes</label>
-                  <textarea
-                    rows={2}
-                    value={additionalRequirements}
-                    onChange={e => setAdditionalRequirements(e.target.value)}
-                    placeholder="e.g. Edge deburring required, hole drilling specs, project deadline..."
-                    className="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
-                  />
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!customerName || !mobileNumber || !email) {
+                          alert('Please fill in your Name, Mobile Number, and Email to proceed.');
+                          return;
+                        }
+                        setStep(2);
+                      }}
+                      className="px-6 py-3 rounded-xl bg-brand-orange hover:bg-orange-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-brand-orange/20"
+                    >
+                      <span>Proceed to Dimensions</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Submit CTA */}
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-brand-orange text-white font-black text-sm uppercase tracking-wider shadow-2xl shadow-brand-orange/30 transition-all flex items-center justify-center gap-2 border border-orange-400/40"
-                >
-                  <Send className="w-5 h-5" />
-                  <span>Submit Quote Request</span>
-                </button>
-              </div>
+              {/* STEP 2: DIMENSIONS & SPECS */}
+              {step === 2 && (
+                <div className="space-y-5 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5">
+                      <Ruler className="w-4 h-4" />
+                      <span>Step 2: Material & Plate Dimensions</span>
+                    </h4>
+                    <span className="text-[10px] font-mono text-slate-400">Step 2 of 3</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Material Type</label>
+                      <select
+                        value={materialType}
+                        onChange={e => setMaterialType(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      >
+                        {settings.materialsList.map(mat => (
+                          <option key={mat} value={mat}>{mat}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Steel Grade</label>
+                      <select
+                        value={grade}
+                        onChange={e => setGrade(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      >
+                        {settings.gradesList.map(g => (
+                          <option key={g} value={g}>{g}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Thickness (mm) *</label>
+                      <input
+                        type="number"
+                        required
+                        min={1}
+                        value={thickness}
+                        onChange={e => setThickness(Number(e.target.value))}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Length (mm) *</label>
+                      <input
+                        type="number"
+                        required
+                        min={10}
+                        value={length}
+                        onChange={e => setLength(Number(e.target.value))}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Width (mm) *</label>
+                      <input
+                        type="number"
+                        required
+                        min={10}
+                        value={width}
+                        onChange={e => setWidth(Number(e.target.value))}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Quantity (Pcs) *</label>
+                      <input
+                        type="number"
+                        required
+                        min={1}
+                        value={quantity}
+                        onChange={e => setQuantity(Number(e.target.value))}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono focus:border-brand-orange focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Weight & Cost Live HUD */}
+                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase">Est. Theoretical Weight:</span>
+                      <span className="text-brand-orange font-bold text-base">{calculateEstWeight()} kg</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-slate-400 block text-[10px] uppercase">Indicative Subtotal:</span>
+                      <span className="text-emerald-400 font-bold text-base">₹{calculateEstPrice().toLocaleString()}</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold text-xs uppercase flex items-center gap-1.5"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setStep(3)}
+                      className="px-6 py-3 rounded-xl bg-brand-orange hover:bg-orange-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-brand-orange/20"
+                    >
+                      <span>Proceed to Cutting & CAD</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3: CUTTING METHOD & CAD UPLOAD */}
+              {step === 3 && (
+                <div className="space-y-5 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <h4 className="text-xs font-mono font-bold text-brand-orange uppercase tracking-wider flex items-center gap-1.5">
+                      <Zap className="w-4 h-4" />
+                      <span>Step 3: Cutting Method & CAD Vector Upload</span>
+                    </h4>
+                    <span className="text-[10px] font-mono text-slate-400">Step 3 of 3</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Cutting Method</label>
+                      <select
+                        value={cuttingMethod}
+                        onChange={e => setCuttingMethod(e.target.value as CuttingMethod)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      >
+                        <option value="Manual Cutting">Manual Oxy-Fuel Cutting</option>
+                        <option value="Machine Cutting">Machine Linear/Profile Cutting</option>
+                        <option value="Laser Cutting">CNC Fiber Laser Precision Cutting</option>
+                        <option value="Saw Cutting">Cold Saw Cutting</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Required Profile Shape</label>
+                      <select
+                        value={requiredShape}
+                        onChange={e => setRequiredShape(e.target.value as PlateShape)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                      >
+                        <option value="Rectangular Plate">Rectangular Plate</option>
+                        <option value="Circular Disc">Circular Disc</option>
+                        <option value="Ring / Flange">Ring / Pipe Flange</option>
+                        <option value="L-Angle / Custom Profile">L-Angle / Gusset Profile</option>
+                        <option value="CAD Drawing Profile">CAD Drawing Profile</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Delivery / Pickup Preference</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                      {[
+                        'Pickup from Workshop',
+                        'Standard Freight Delivery',
+                        'Express Site Delivery'
+                      ].map(opt => (
+                        <button
+                          type="button"
+                          key={opt}
+                          onClick={() => setDeliveryOption(opt as DeliveryOption)}
+                          className={`p-2.5 rounded-xl border text-xs font-semibold transition-all ${
+                            deliveryOption === opt
+                              ? 'bg-brand-orange/20 border-brand-orange text-white font-bold'
+                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CAD File Dropzone */}
+                  <div className="space-y-2">
+                    <label className="block text-xs font-mono text-slate-300 font-semibold">Upload CAD Drawing / File (Optional)</label>
+                    <div className="border-2 border-dashed border-slate-700 hover:border-brand-orange/60 rounded-2xl p-5 text-center bg-slate-950/60 transition-colors">
+                      <input
+                        type="file"
+                        id="drawing-upload-input"
+                        accept=".dxf,.dwg,.pdf,.jpg,.jpeg,.png,.step,.iges"
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                      <label htmlFor="drawing-upload-input" className="cursor-pointer space-y-2 block">
+                        <UploadCloud className="w-8 h-8 text-brand-orange mx-auto animate-bounce" />
+                        <div className="text-xs text-slate-200">
+                          {drawingFileName ? (
+                            <span className="text-emerald-400 font-bold flex items-center justify-center gap-1.5">
+                              <FileCheck className="w-4 h-4" /> {drawingFileName}
+                            </span>
+                          ) : (
+                            <span>Drag & Drop CAD Drawings (DXF, DWG, PDF, STEP) or Click to Browse</span>
+                          )}
+                        </div>
+                        <div className="flex items-center justify-center gap-2 pt-1">
+                          <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">.DXF</span>
+                          <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">.DWG</span>
+                          <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">.PDF</span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-slate-300 font-semibold mb-1">Additional Project Specifications</label>
+                    <textarea
+                      rows={2}
+                      value={additionalRequirements}
+                      onChange={e => setAdditionalRequirements(e.target.value)}
+                      placeholder="e.g. Edge beveling, hole pitch tolerance, delivery target date..."
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs focus:border-brand-orange focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="pt-3 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setStep(2)}
+                      className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold text-xs uppercase flex items-center gap-1.5"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>Back</span>
+                    </button>
+
+                    <button
+                      type="submit"
+                      className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-orange via-orange-500 to-red-600 hover:from-orange-600 hover:to-brand-orange text-white font-black text-xs uppercase tracking-wider shadow-2xl shadow-brand-orange/35 flex items-center gap-2 border border-orange-400/40"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>Submit Quote Requirement</span>
+                    </button>
+                  </div>
+                </div>
+              )}
 
             </form>
           )}
