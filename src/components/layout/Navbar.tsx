@@ -179,8 +179,8 @@ export const Navbar: React.FC = () => {
                 <span>Call Now</span>
               </a>
 
-              {/* 3-Option Theme Switcher (Light / Dark / System) */}
-              <ThemeToggle className="hidden sm:inline-flex" />
+              {/* Single Icon Theme Switcher (Light / Dark / System Dropdown) */}
+              <ThemeToggle className="inline-flex" />
 
               {/* Steel Calculator Quick Trigger */}
               <button
