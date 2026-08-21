@@ -109,9 +109,15 @@ const MainContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0F1115]">
+    <div className="min-h-screen flex flex-col luxury-industrial-bg relative overflow-x-hidden">
+      {/* Dynamic Ambient Background Glow Elements */}
+      <div className="ambient-laser-spotlight top-0 left-1/4 -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="ambient-blue-spotlight top-1/3 right-0 translate-x-1/3" />
+      <div className="ambient-laser-spotlight top-2/3 left-0 -translate-x-1/3" />
+      <div className="ambient-blue-spotlight bottom-0 right-1/4 translate-y-1/3" />
+
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         {renderPage()}
       </main>
       <Footer />
