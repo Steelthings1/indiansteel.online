@@ -72,20 +72,20 @@ export const Navbar: React.FC = () => {
     <header className="sticky top-0 z-40 w-full select-none">
       
       {/* Top Industrial Live Ticker Bar */}
-      <div className="bg-[#080A0D] border-b border-white/5 py-1.5 px-4 hidden sm:block">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-mono text-slate-400">
+      <div className="bg-[#080A0D] border-b border-white/10 py-1.5 px-4 hidden sm:block">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-mono text-slate-300">
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               <span>SHOP FLOOR: ACTIVE</span>
             </span>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-500">|</span>
             <span className="flex items-center gap-1 text-slate-300">
               <ShieldCheck className="w-3.5 h-3.5 text-brand-orange" />
               <span>Prime IS 2062 Certified Plates</span>
             </span>
-            <span className="text-slate-600">|</span>
-            <span className="text-amber-400 font-semibold">
+            <span className="text-slate-500">|</span>
+            <span className="text-amber-400 font-bold">
               Live Base Steel: ₹{settings.defaultBasePricePerKg}/kg
             </span>
           </div>
@@ -94,9 +94,9 @@ export const Navbar: React.FC = () => {
             <span className="text-slate-400">
               Laser Tolerance: <strong className="text-white">±0.2mm</strong>
             </span>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-500">|</span>
             <span className="text-slate-300 font-mono">
-              Coimbatore: <a href="tel:+919342472147" className="text-white hover:text-brand-orange">9342472147</a> / <a href="tel:+918056310565" className="text-white hover:text-brand-orange">8056310565</a>
+              Coimbatore: <a href="tel:+919342472147" className="text-white hover:text-brand-orange font-bold">9342472147</a> / <a href="tel:+918056310565" className="text-white hover:text-brand-orange font-bold">8056310565</a>
             </span>
           </div>
         </div>
@@ -105,8 +105,8 @@ export const Navbar: React.FC = () => {
       {/* Main Navigation Bar */}
       <div className={`transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#0B0D12]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl py-2.5' 
-          : 'bg-[#0F1117]/95 backdrop-blur-md border-b border-white/5 py-3'
+          ? 'bg-[#0B0D12]/95 backdrop-blur-xl border-b border-slate-800 shadow-2xl py-2.5' 
+          : 'bg-[#0F1117]/95 backdrop-blur-md border-b border-slate-800/80 py-3'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -120,7 +120,7 @@ export const Navbar: React.FC = () => {
                 className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md ${
                   isMenuOpen
                     ? 'bg-brand-orange text-white border-brand-orange shadow-brand-orange/30'
-                    : 'bg-slate-900/90 text-white border-slate-700 hover:border-brand-orange hover:bg-slate-800'
+                    : 'bg-slate-900 text-white border-slate-700 hover:border-brand-orange hover:bg-slate-800'
                 }`}
                 aria-label="Toggle Navigation Menu"
               >
