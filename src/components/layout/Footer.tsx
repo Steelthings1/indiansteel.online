@@ -92,6 +92,8 @@ export const Footer: React.FC = () => {
                 { label: 'Industries We Serve', page: 'industries' as ActivePage },
                 { label: 'Steel Weight Calculator', page: 'calculator' as ActivePage },
                 { label: 'Contact Us', page: 'contact' as ActivePage },
+                { label: 'Customer Portal', page: 'customer-portal' as ActivePage },
+                { label: 'Admin Control Panel', page: 'admin-dashboard' as ActivePage },
               ].map((link) => (
                 <li key={link.label}>
                   <button

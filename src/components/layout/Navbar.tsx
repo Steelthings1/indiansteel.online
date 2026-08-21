@@ -186,6 +186,23 @@ export const Navbar: React.FC = () => {
                 <span>Get a Quote</span>
               </button>
 
+              {/* Direct 1-Click Admin Button */}
+              <button
+                onClick={() => {
+                  setUserRole('admin');
+                  handleNavClick('admin-dashboard');
+                }}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all border ${
+                  activePage === 'admin-dashboard'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-inner'
+                    : 'bg-slate-900 border-slate-700 text-slate-300 hover:text-white hover:border-amber-400/50'
+                }`}
+                title="Open Admin Control Dashboard"
+              >
+                <LayoutDashboard className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden xl:inline">Admin Panel</span>
+              </button>
+
               {/* Portal View Switcher (Admin / Customer / Visitor) */}
               <div className="relative">
                 <button
