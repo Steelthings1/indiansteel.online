@@ -230,7 +230,7 @@
 }
 
 /* =========================================================
-   LIGHT THEME MODE OVERRIDES
+   LIGHT THEME MODE HIGH-CONTRAST OVERRIDES
    ========================================================= */
 html.light, body.light, .light {
   color: #0F172A;
@@ -245,56 +245,143 @@ html.light, body.light, .light {
   background: #F1F5F9;
 }
 .light ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #94A3B8;
 }
 
 .light .luxury-industrial-bg {
   background-color: #F8FAFC;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(255, 85, 0, 0.04) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(255, 85, 0, 0.02) 0px, transparent 65%),
-    radial-gradient(at 100% 100%, rgba(255, 85, 0, 0.03) 0px, transparent 50%),
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    radial-gradient(at 0% 0%, rgba(234, 88, 12, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(234, 88, 12, 0.03) 0px, transparent 65%),
+    radial-gradient(at 100% 100%, rgba(234, 88, 12, 0.04) 0px, transparent 50%),
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
 }
 
+/* Crisp White Cards in Light Mode */
 .light .industrial-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.05);
 }
 
 .light .industrial-card::before {
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 85, 0, 0.4) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(234, 88, 12, 0.6) 50%, transparent 100%);
 }
 
 .light .industrial-card:hover {
-  border-color: rgba(255, 85, 0, 0.6);
-  box-shadow: 0 12px 30px -4px rgba(255, 85, 0, 0.15), 0 0 1px 1px rgba(255, 85, 0, 0.3);
+  border-color: #EA580C !important;
+  box-shadow: 0 12px 28px -4px rgba(234, 88, 12, 0.2), 0 0 1px 1px rgba(234, 88, 12, 0.4);
 }
 
 .light .industrial-card-glow {
-  background: #FFFFFF;
-  border: 1px solid rgba(255, 85, 0, 0.4);
-  box-shadow: 0 10px 25px -4px rgba(255, 85, 0, 0.12);
+  background: #FFFFFF !important;
+  border: 1px solid #FB923C !important;
+  box-shadow: 0 10px 25px -4px rgba(234, 88, 12, 0.15);
 }
 
 .light .metallic-badge {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #CBD5E1;
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+/* High Contrast Headings and Text in Light Mode */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6,
+.light .font-display {
+  color: #0F172A !important;
+}
+
+.light .text-white {
+  color: #0F172A !important;
+}
+
+.light .text-slate-100,
+.light .text-slate-200 {
+  color: #0F172A !important;
+  font-weight: 600;
+}
+
+.light .text-slate-300 {
+  color: #1E293B !important;
+}
+
+.light .text-slate-400 {
+  color: #334155 !important;
+}
+
+.light .text-slate-500 {
+  color: #475569 !important;
+}
+
+.light .text-slate-600 {
+  color: #64748B !important;
+}
+
+/* High-Contrast Brand Gradients */
+.light .orange-gradient-text {
+  background: linear-gradient(135deg, #EA580C 0%, #C2410C 50%, #9A3412 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
 }
 
 .light .metallic-gradient-text {
-  background: linear-gradient(135deg, #0F172A 0%, #334155 50%, #64748B 100%);
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 800;
 }
 
+.light .gold-gradient-text {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Vibrant Contrast Accent Colors in Light Mode */
+.light .text-brand-orange {
+  color: #C2410C !important;
+  font-weight: 700;
+}
+
+.light .text-emerald-400 {
+  color: #047857 !important;
+  font-weight: 700;
+}
+
+.light .text-amber-400 {
+  color: #B45309 !important;
+  font-weight: 700;
+}
+
+.light .text-blue-400 {
+  color: #1D4ED8 !important;
+  font-weight: 700;
+}
+
+.light .text-purple-400 {
+  color: #6B21A8 !important;
+  font-weight: 700;
+}
+
+.light .text-rose-400 {
+  color: #BE123C !important;
+  font-weight: 700;
+}
+
+/* Background Blocks in Light Mode */
 .light section {
   background-color: transparent;
-  border-color: #E2E8F0;
+  border-color: #E2E8F0 !important;
 }
 
 .light .bg-slate-900,
@@ -307,45 +394,90 @@ html.light, body.light, .light {
   background-color: #FFFFFF !important;
 }
 
+.light .bg-slate-900\/90,
+.light .bg-slate-900\/80,
+.light .bg-slate-950\/90,
+.light .bg-slate-950\/80,
+.light .bg-slate-950\/60 {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* Borders in Light Mode */
 .light .border-slate-800,
-.light .border-slate-700 {
-  border-color: #E2E8F0 !important;
+.light .border-slate-700,
+.light .border-slate-800\/80,
+.light .border-slate-700\/80 {
+  border-color: #CBD5E1 !important;
 }
 
-.light .text-white {
-  color: #0F172A !important;
+.light .border-white\/10,
+.light .border-white\/5 {
+  border-color: #CBD5E1 !important;
 }
 
-.light .text-slate-100,
-.light .text-slate-200 {
+/* Highlight Badges in Light Mode */
+.light .bg-white\/5,
+.light .bg-white\/10 {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
   color: #1E293B !important;
 }
 
-.light .text-slate-300 {
-  color: #334155 !important;
+.light .bg-brand-orange\/15,
+.light .bg-brand-orange\/20 {
+  background-color: #FFEDD5 !important;
+  border-color: #FB923C !important;
+  color: #9A3412 !important;
 }
 
-.light .text-slate-400 {
-  color: #64748B !important;
+.light .bg-emerald-500\/10,
+.light .bg-emerald-500\/20 {
+  background-color: #D1FAE5 !important;
+  border-color: #34D399 !important;
+  color: #065F46 !important;
 }
 
+.light .bg-amber-500\/15,
+.light .bg-amber-500\/20 {
+  background-color: #FEF3C7 !important;
+  border-color: #FBBF24 !important;
+  color: #92400E !important;
+}
+
+.light .bg-blue-500\/10,
+.light .bg-blue-500\/20 {
+  background-color: #DBEAFE !important;
+  border-color: #60A5FA !important;
+  color: #1E40AF !important;
+}
+
+/* Form Inputs, Selects & Textareas in Light Mode */
 .light input,
 .light select,
 .light textarea {
-  background-color: #F8FAFC !important;
-  border-color: #CBD5E1 !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #94A3B8 !important;
   color: #0F172A !important;
+  font-weight: 500;
 }
 
 .light input:focus,
 .light select:focus,
 .light textarea:focus {
-  border-color: #FF5500 !important;
+  border-color: #EA580C !important;
+  box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2) !important;
   background-color: #FFFFFF !important;
 }
 
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #64748B !important;
+}
+
+/* Ambient Spotlights subtle in light mode */
 .light .ambient-laser-spotlight,
 .light .ambient-blue-spotlight {
-  opacity: 0.35;
+  opacity: 0.15;
 }
 
